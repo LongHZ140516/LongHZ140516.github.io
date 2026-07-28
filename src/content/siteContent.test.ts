@@ -89,6 +89,13 @@ describe("site content", () => {
       join(contentRoot, "profile/about.md"),
     );
 
+    expect(profile.profileNotes).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ icon: "education" }),
+        expect.objectContaining({ icon: "development" }),
+        expect.objectContaining({ icon: "culture" }),
+      ]),
+    );
     expect(
       profile.socials.find((social) => social.kind === "email")?.primary,
     ).not.toBe(true);

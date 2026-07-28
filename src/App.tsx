@@ -2,6 +2,7 @@ import {
   ArrowDown,
   ArrowUpRight,
   Briefcase,
+  Code,
   Cube,
   EnvelopeSimple,
   Eye,
@@ -20,10 +21,12 @@ import {
 import { InterestGallery } from "./components/InterestGallery";
 import { ProjectCard } from "./components/ProjectCard";
 import { PublicationPoster } from "./components/PublicationPoster";
+import { RecentUpdates } from "./components/RecentUpdates";
 import { SiteHeader } from "./components/SiteHeader";
 import { assetUrl, initialsForName } from "./content/contentUtils";
 import { siteContent } from "./content/loadContent";
 import type {
+  ProfileNote,
   ResearchInterest,
   SocialKind,
   SocialLink,
@@ -48,14 +51,20 @@ const researchIcons = {
   agent: Robot,
 } satisfies Record<ResearchInterest["icon"], Icon>;
 
-function socialIcon(social: SocialLink) {
-  const SocialIcon = socialIcons[social.kind];
-  return <SocialIcon size={17} weight="regular" aria-hidden="true" />;
-}
+const profileNoteIcons = {
+  education: Student,
+  development: Code,
+  culture: MusicNotesSimple,
+} satisfies Record<ProfileNote["icon"], Icon>;
 
-function researchInterestIcon(interest: ResearchInterest) {
-  const ResearchIcon = researchIcons[interest.icon];
-  return <ResearchIcon size={17} weight="regular" aria-hidden="true" />;
+function InlineIcon({
+  component: IconComponent,
+  size = 17,
+}: {
+  component: Icon;
+  size?: number;
+}) {
+  return <IconComponent size={size} weight="regular" aria-hidden="true" />;
 }
 
 function externalLinkAttributes(href: string) {
@@ -67,7 +76,7 @@ function externalLinkAttributes(href: string) {
 function SocialLinkItem({ social }: { social: SocialLink }) {
   return (
     <a href={social.href} {...externalLinkAttributes(social.href)}>
-      {socialIcon(social)}
+      <InlineIcon component={socialIcons[social.kind]} />
       {social.label}
     </a>
   );
@@ -81,7 +90,7 @@ function HeroSocialLink({ social }: { social: SocialLink }) {
       {...externalLinkAttributes(social.href)}
       aria-label={social.label}
     >
-      {socialIcon(social)}
+      <InlineIcon component={socialIcons[social.kind]} />
       <span className="hero-social-tooltip" aria-hidden="true">
         {social.label}
       </span>
@@ -106,29 +115,36 @@ export default function App() {
               <p className="eyebrow">{profile.role}</p>
               <h1>{profile.name}</h1>
               <p className="hero-bio">{profile.bio}</p>
-              <nav className="hero-socials" aria-label="Profile links">
-                {primarySocials.map((social) => (
-                  <HeroSocialLink key={social.label} social={social} />
-                ))}
-              </nav>
-              <div className="hero-actions">
-                <a className="button button--primary" href="#publications">
-                  Publications
-                  <ArrowDown size={17} weight="regular" aria-hidden="true" />
-                </a>
-                <a
-                  className="button button--secondary"
-                  href={
-                    profile.socials.find((item) => item.kind === "email")?.href
-                  }
-                >
-                  Email
-                  <EnvelopeSimple
-                    size={17}
-                    weight="regular"
-                    aria-hidden="true"
-                  />
-                </a>
+              <div className="hero-controls">
+                <div className="hero-actions">
+                  <a className="button button--primary" href="#publications">
+                    Publications
+                    <ArrowDown
+                      size={17}
+                      weight="regular"
+                      aria-hidden="true"
+                    />
+                  </a>
+                  <a
+                    className="button button--secondary"
+                    href={
+                      profile.socials.find((item) => item.kind === "email")
+                        ?.href
+                    }
+                  >
+                    Email
+                    <EnvelopeSimple
+                      size={17}
+                      weight="regular"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </div>
+                <nav className="hero-socials" aria-label="Profile links">
+                  {primarySocials.map((social) => (
+                    <HeroSocialLink key={social.label} social={social} />
+                  ))}
+                </nav>
               </div>
             </div>
 
@@ -136,6 +152,19 @@ export default function App() {
               <div className="hero-about">
                 <h2>{profile.aboutHeading}</h2>
                 <p>{profile.aboutBody}</p>
+                <div className="profile-notes" aria-label="Personal notes">
+                  {profile.profileNotes.map((note) => (
+                    <p className="profile-note" key={note.text}>
+                      <span className="profile-note__icon">
+                        <InlineIcon
+                          component={profileNoteIcons[note.icon]}
+                          size={15}
+                        />
+                      </span>
+                      <span>{note.text}</span>
+                    </p>
+                  ))}
+                </div>
               </div>
 
               <div className="hero-focus">
@@ -144,7 +173,9 @@ export default function App() {
                   {profile.researchInterests.map((interest) => (
                     <span className="focus-item" key={interest.label}>
                       <span className="focus-icon">
-                        {researchInterestIcon(interest)}
+                        <InlineIcon
+                          component={researchIcons[interest.icon]}
+                        />
                       </span>
                       {interest.label}
                     </span>
@@ -231,29 +262,7 @@ export default function App() {
           </aside>
         </section>
 
-        <section className="news-strip" aria-labelledby="news-heading">
-          <div className="page-shell news-layout">
-            <h2 id="news-heading">Recent updates</h2>
-            <div className="news-list" aria-label="All recent updates">
-              {profile.news.map((item) => (
-                <a
-                  key={`${item.date}-${item.title}`}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <time>{item.date}</time>
-                  <span>{item.title}</span>
-                  <ArrowUpRight
-                    size={15}
-                    weight="regular"
-                    aria-hidden="true"
-                  />
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
+        <RecentUpdates items={profile.news} />
 
         <section className="publication-section page-shell" id="publications">
           <div className="section-heading">

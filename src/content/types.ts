@@ -36,6 +36,11 @@ export interface ResearchInterest {
   icon: "cube" | "eye" | "image" | "agent";
 }
 
+export interface ProfileNote {
+  icon: "education" | "development" | "culture";
+  text: string;
+}
+
 export interface NewsItem {
   date: string;
   title: string;
@@ -53,6 +58,7 @@ export interface Profile {
   aboutBody: string;
   footerBio: string;
   location: string;
+  profileNotes: ProfileNote[];
   researchInterests: ResearchInterest[];
   socials: SocialLink[];
   affiliations: Affiliation[];

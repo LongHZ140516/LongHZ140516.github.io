@@ -9,6 +9,13 @@ aboutHeading: "Research with a maker's eye."
 aboutBody: "My work connects visual intelligence with 3D worlds. I also build open tools that make research easier to explore, present, and reuse."
 footerBio: "Researcher and developer working on visual intelligence and 3D."
 location: "Sun Yat-sen University"
+profileNotes:
+  - icon: "education"
+    text: "At SYSU since the 2020 GST cohort, now continuing as a graduate student."
+  - icon: "development"
+    text: "I keep learning beyond research through front-end and game development."
+  - icon: "culture"
+    text: "Away from research: anime and games, with R&B, city pop, and K-pop in rotation."
 researchInterests:
   - label: "3D Generation & Reconstruction"
     icon: "cube"

@@ -60,7 +60,6 @@ export function InterestGallery({ interest }: InterestGalleryProps) {
         className="interest-marquee"
         style={marqueeStyle}
         aria-label={`${interest.name} gallery`}
-        tabIndex={0}
       >
         <div className="interest-track">
           <div className="interest-set">

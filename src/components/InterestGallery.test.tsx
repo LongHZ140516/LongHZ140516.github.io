@@ -26,6 +26,7 @@ describe("InterestGallery", () => {
     );
 
     expect(html).not.toMatch(/<a(?:\s|>)/);
+    expect(html).not.toContain('tabindex="0"');
     expect(html).toContain("<figure");
     expect(html).toContain("Example cover");
   });
