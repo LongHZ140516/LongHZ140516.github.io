@@ -6,10 +6,9 @@ import {
   GithubLogo,
   GraduationCap,
   MapPin,
-  Sparkle,
   Student,
 } from "@phosphor-icons/react";
-import { InterestTile } from "./components/InterestTile";
+import { InterestGallery } from "./components/InterestGallery";
 import { ProjectCard } from "./components/ProjectCard";
 import { PublicationPoster } from "./components/PublicationPoster";
 import { SiteHeader } from "./components/SiteHeader";
@@ -58,50 +57,103 @@ export default function App() {
       <SiteHeader name={profile.name} />
 
       <main id="main">
-        <section className="hero page-shell" id="top">
+        <section className="hero page-shell" id="about">
           <div className="hero-copy">
-            <p className="eyebrow">{profile.role}</p>
-            <h1>{profile.name}</h1>
-            <p className="hero-bio">{profile.bio}</p>
-            <div className="hero-actions">
-              <a className="button button--primary" href="#publications">
-                View research
-                <ArrowDown size={17} weight="regular" aria-hidden="true" />
-              </a>
-              <a
-                className="button button--secondary"
-                href={profile.socials.find((item) => item.kind === "email")?.href}
-              >
-                Email me
-                <EnvelopeSimple
-                  size={17}
-                  weight="regular"
-                  aria-hidden="true"
-                />
-              </a>
+            <div className="hero-intro">
+              <p className="eyebrow">{profile.role}</p>
+              <h1>{profile.name}</h1>
+              <p className="hero-bio">{profile.bio}</p>
+              <div className="hero-actions">
+                <a className="button button--primary" href="#publications">
+                  Publications
+                  <ArrowDown size={17} weight="regular" aria-hidden="true" />
+                </a>
+                <a
+                  className="button button--secondary"
+                  href={
+                    profile.socials.find((item) => item.kind === "email")?.href
+                  }
+                >
+                  Email
+                  <EnvelopeSimple
+                    size={17}
+                    weight="regular"
+                    aria-hidden="true"
+                  />
+                </a>
+              </div>
+            </div>
+
+            <div className="hero-research">
+              <div className="hero-about">
+                <h2>{profile.aboutHeading}</h2>
+                <p>{profile.aboutBody}</p>
+                <div className="social-links">
+                  {primarySocials.map((social) => (
+                    <SocialLinkItem key={social.label} social={social} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="hero-focus">
+                <h2>Research interests</h2>
+                <div className="focus-grid">
+                  {profile.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          <figure className="hero-portrait">
-            <div className="portrait-frame">
-              <img
-                src={assetUrl(profile.avatar)}
-                alt={profile.avatarAlt}
-                width="400"
-                height="400"
-                fetchPriority="high"
-              />
-              <span className="portrait-shape portrait-shape--circle" />
-              <span className="portrait-shape portrait-shape--square" />
+          <aside className="hero-aside" aria-label="Profile and affiliations">
+            <figure className="hero-portrait">
+              <div className="portrait-frame">
+                <img
+                  src={assetUrl(profile.avatar)}
+                  alt={profile.avatarAlt}
+                  width="320"
+                  height="360"
+                  fetchPriority="high"
+                />
+                <span className="portrait-shape portrait-shape--circle" />
+                <span className="portrait-shape portrait-shape--square" />
+              </div>
+              <figcaption>
+                <span>{profile.alias}</span>
+                <span className="location">
+                  <MapPin size={15} weight="regular" aria-hidden="true" />
+                  {profile.location}
+                </span>
+              </figcaption>
+            </figure>
+
+            <div className="hero-affiliations">
+              <h2>Education &amp; experience</h2>
+              {profile.affiliations.map((item) => (
+                <article
+                  key={`${item.organization}-${item.role}-${item.period}`}
+                >
+                  <div className="affiliation-logo" aria-hidden="true">
+                    {item.logo ? (
+                      <img src={assetUrl(item.logo)} alt="" />
+                    ) : item.kind === "education" ? (
+                      <Student size={22} weight="regular" />
+                    ) : (
+                      <Briefcase size={22} weight="regular" />
+                    )}
+                  </div>
+                  <div>
+                    <div className="affiliation-heading">
+                      <h3>{item.organization}</h3>
+                      <time>{item.period}</time>
+                    </div>
+                    <p>{item.role}</p>
+                  </div>
+                </article>
+              ))}
             </div>
-            <figcaption>
-              <span>{profile.alias}</span>
-              <span className="location">
-                <MapPin size={15} weight="regular" aria-hidden="true" />
-                {profile.location}
-              </span>
-            </figcaption>
-          </figure>
+          </aside>
         </section>
 
         <section className="news-strip" aria-labelledby="news-heading">
@@ -128,65 +180,12 @@ export default function App() {
           </div>
         </section>
 
-        <section className="about-section page-shell" id="about">
-          <div className="about-intro">
-            <h2>{profile.aboutHeading}</h2>
-            <p>{profile.aboutBody}</p>
-            <div className="social-links">
-              {primarySocials.map((social) => (
-                <SocialLinkItem key={social.label} social={social} />
-              ))}
-            </div>
-          </div>
-
-          <div className="profile-details">
-            <div className="research-index">
-              <h3>Current focus</h3>
-              <div className="focus-grid">
-                {profile.tags.map((tag) => (
-                  <span key={tag}>
-                    <Sparkle size={14} weight="regular" aria-hidden="true" />
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="affiliations">
-              <h3>Affiliations</h3>
-              {profile.affiliations.map((item) => (
-                <article
-                  key={`${item.organization}-${item.role}-${item.period}`}
-                >
-                  <div className="affiliation-logo" aria-hidden="true">
-                    {item.logo ? (
-                      <img src={assetUrl(item.logo)} alt="" />
-                    ) : item.kind === "education" ? (
-                      <Student size={25} weight="regular" />
-                    ) : (
-                      <Briefcase size={25} weight="regular" />
-                    )}
-                  </div>
-                  <div>
-                    <div className="affiliation-heading">
-                      <h4>{item.organization}</h4>
-                      <time>{item.period}</time>
-                    </div>
-                    <p className="affiliation-role">{item.role}</p>
-                    <p>{item.description}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="publication-section page-shell" id="publications">
           <div className="section-heading">
-            <h2>Selected research, presented as a working archive.</h2>
+            <h2>Publications</h2>
             <p>
-              {publications.length} publications across 3D vision, image
-              generation, visual reasoning, and remote sensing.
+              {publications.length} papers in 3D vision, image generation,
+              visual reasoning, and remote sensing.
             </p>
           </div>
           <div className="publication-grid">
@@ -201,12 +200,9 @@ export default function App() {
         </section>
 
         <section className="project-section page-shell" id="projects">
-          <div className="section-heading section-heading--compact">
-            <h2>Projects built to be used.</h2>
-            <p>
-              Open-source experiments that turn research, visual culture, and
-              interaction into practical tools.
-            </p>
+          <div className="section-heading">
+            <h2>Projects</h2>
+            <p>{projects.length} open-source tools and experiments.</p>
           </div>
           <div className="project-grid">
             {projects.map((project) => (
@@ -217,15 +213,12 @@ export default function App() {
 
         <section className="interest-section page-shell" id="interests">
           <div className="section-heading">
-            <h2>Outside the lab, images still lead.</h2>
-            <p>
-              Music, animation, and games are another way to study timing,
-              composition, and world-building.
-            </p>
+            <h2>Interests</h2>
+            <p>Anime, K-pop, and games in an evolving visual shelf.</p>
           </div>
           <div className="interest-gallery">
             {interests.map((interest) => (
-              <InterestTile key={interest.slug} interest={interest} />
+              <InterestGallery key={interest.slug} interest={interest} />
             ))}
           </div>
         </section>
@@ -246,7 +239,7 @@ export default function App() {
               <SocialLinkItem key={social.label} social={social} />
             ))}
           </div>
-          <a className="back-to-top" href="#top">
+          <a className="back-to-top" href="#about">
             Back to top
             <ArrowUpRight size={15} weight="regular" aria-hidden="true" />
           </a>

@@ -9,7 +9,7 @@ import { initialsForName } from "../content/contentUtils";
 import type { Theme } from "../content/types";
 
 const navigation = [
-  { label: "Research", href: "#publications" },
+  { label: "Publications", href: "#publications" },
   { label: "Projects", href: "#projects" },
   { label: "Interests", href: "#interests" },
   { label: "About", href: "#about" },
@@ -52,7 +52,7 @@ export function SiteHeader({ name }: { name: string }) {
 
   return (
     <header className="site-header">
-      <a className="brand-mark" href="#top" aria-label={`${name}, home`}>
+      <a className="brand-mark" href="#about" aria-label={`${name}, home`}>
         <span className="brand-monogram" aria-hidden="true">
           {initialsForName(name)}
         </span>

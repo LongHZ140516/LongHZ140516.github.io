@@ -22,14 +22,21 @@ npm run check
 - `src/content/profile/about.md`：姓名、简介、学校、社交链接、动态与经历
 - `src/content/publications/*.md`：每篇论文一份文件
 - `src/content/projects/*.md`：每个项目一份文件
-- `src/content/interests/*.md`：每项兴趣一份文件，图片可以使用公开 URL
+- `src/content/interests/*.md`：每个兴趣分类一份文件，分类内可维护任意数量的图片条目
 - `public/assets/`：论文、项目、头像与学校标识等静态资源
 
 新增内容时复制同目录下任意 Markdown 文件并修改 frontmatter。文件名会自动成为稳定的内容标识，不需要修改 React 组件。
 
 项目卡片中的 `stars` 是构建时使用的静态快照。需要更新时直接修改对应 Markdown 文件中的数值。这样不会受到 GitHub 公共 API 限流影响，离线访问也能保持完整。
 
-目前提供的资料中没有实习公司信息，因此页面没有虚构经历。`src/content/profile/about.md` 内已经保留一段注释模板，补充公司名称、职位和时间后会自动出现在 Affiliations 区域。
+个人资料已经包含腾讯混元 3D 实习经历。工作或教育经历都在 `src/content/profile/about.md` 的 `affiliations` 数组中维护，Logo 放在 `public/assets/brand/`。
+
+兴趣画廊中的每个分类包含 `duration` 和 `items`：
+
+- `duration` 控制一轮自动滚动所需的秒数
+- `items` 中的每一项包含名称、简短说明、图片 URL、替代文本与目标链接
+- 增删条目后画廊会自动调整长度，不需要修改组件
+- 鼠标悬停或键盘聚焦时滚动会暂停；系统启用“减少动态效果”时会改为手动横向滚动
 
 ## GitHub Pages
 

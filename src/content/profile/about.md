@@ -36,6 +36,12 @@ socials:
     href: "https://space.bilibili.com/15318600"
 
 affiliations:
+  - kind: "work"
+    organization: "Tencent Hunyuan3D"
+    role: "Research Intern"
+    period: "2026.05 - Present"
+    description: "Internship with the Tencent Hunyuan3D team."
+    logo: "./assets/brand/hunyuan.png"
   - kind: "education"
     organization: "Sun Yat-sen University"
     role: "M.S. in Remote Sensing Science and Technology"
@@ -48,13 +54,6 @@ affiliations:
     period: "2020 - 2024"
     description: "Graduated with honors."
     logo: "./assets/brand/sysu.svg"
-
-# Add an internship without touching the React page:
-#  - kind: "work"
-#    organization: "Company name"
-#    role: "Research Intern"
-#    period: "2026"
-#    description: "A short description of the work."
 
 news:
   - date: "2026.02"

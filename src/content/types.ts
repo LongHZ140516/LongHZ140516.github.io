@@ -73,15 +73,23 @@ export interface Project {
   stars: number;
 }
 
+export interface InterestItem {
+  name: string;
+  meta: string;
+  image: string;
+  imageAlt: string;
+  href: string;
+}
+
 export interface Interest {
   slug: string;
   name: string;
   subtitle: string;
   description: string;
-  image: string;
-  imageAlt: string;
   href: string;
   sourceLabel: string;
+  duration: number;
+  items: InterestItem[];
 }
 
 export interface SiteContent {
