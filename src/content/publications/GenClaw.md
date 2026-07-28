@@ -12,6 +12,7 @@ authors:
 image: "./assets/publications/genclaw.webp"
 imageAlt: "GenClaw code-driven agentic image generation workflow"
 paperUrl: "https://arxiv.org/abs/2605.30248"
+githubUrl: "https://github.com/yejy53/GenClaw"
 date: "2026-05-28"
 highlight: false
 tags: ["Agentic AI", "Image Generation", "Code Rendering"]

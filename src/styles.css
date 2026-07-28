@@ -491,8 +491,30 @@ button {
   padding-bottom: 8px;
   overscroll-behavior-inline: contain;
   scroll-snap-type: inline proximity;
-  scrollbar-color: var(--line-strong) transparent;
+  scrollbar-color: transparent transparent;
   scrollbar-width: thin;
+}
+
+.news-list::-webkit-scrollbar {
+  height: 2px;
+}
+
+.news-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.news-list::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.news-list:hover,
+.news-list:focus-within {
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.news-list:hover::-webkit-scrollbar-thumb,
+.news-list:focus-within::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
 }
 
 .news-list a {
@@ -528,7 +550,7 @@ button {
 
 .hero-research {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(230px, 0.8fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(250px, 0.7fr);
   gap: clamp(28px, 4vw, 52px);
   margin-top: 38px;
   padding-top: 28px;
@@ -581,6 +603,11 @@ button {
   font-weight: 600;
 }
 
+.profile-link-grid svg,
+.footer-links svg {
+  flex: 0 0 auto;
+}
+
 .profile-link-grid a {
   min-height: 44px;
   padding: 10px 12px;
@@ -606,25 +633,30 @@ button {
 
 .focus-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
-.focus-grid span {
+.focus-item {
   display: flex;
   align-items: center;
+  gap: 10px;
   min-height: 42px;
   border-top: 1px solid var(--line-strong);
   color: var(--ink-soft);
   font-size: 12px;
 }
 
-.focus-grid span:nth-child(odd) {
-  padding-right: 12px;
+.focus-item:last-child {
+  border-bottom: 1px solid var(--line);
 }
 
-.focus-grid span:nth-child(even) {
-  padding-left: 12px;
-  border-left: 1px solid var(--line);
+.focus-icon {
+  display: grid;
+  flex: 0 0 30px;
+  place-items: center;
+  min-height: 42px;
+  border-right: 1px solid var(--line);
+  color: var(--accent-strong);
 }
 
 .hero-aside {
@@ -683,6 +715,33 @@ button {
   margin: 4px 0 0;
   color: var(--ink-soft);
   font-size: 10px;
+}
+
+.hero-affiliations article .affiliation-mentors {
+  margin-top: 6px;
+  line-height: 1.45;
+}
+
+.mentor-label {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.affiliation-mentor-item a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.affiliation-mentor-item a:hover {
+  color: var(--accent-strong);
+  text-decoration-color: currentColor;
 }
 
 .publication-section,
@@ -1432,12 +1491,6 @@ button {
 
   .profile-link-grid a:nth-last-child(-n + 2) {
     border-bottom: 1px solid var(--line);
-  }
-
-  .focus-grid span:nth-child(odd),
-  .focus-grid span:nth-child(even) {
-    padding-inline: 0;
-    border-left: 0;
   }
 
   .publication-section,

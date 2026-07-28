@@ -15,6 +15,11 @@ export interface SocialLink {
   primary?: boolean;
 }
 
+export interface Mentor {
+  name: string;
+  href?: string;
+}
+
 export interface Affiliation {
   kind: "education" | "work";
   organization: string;
@@ -22,6 +27,13 @@ export interface Affiliation {
   period: string;
   description: string;
   logo?: string;
+  mentorLabel?: string;
+  mentors?: Mentor[];
+}
+
+export interface ResearchInterest {
+  label: string;
+  icon: "cube" | "eye" | "image" | "agent";
 }
 
 export interface NewsItem {
@@ -41,7 +53,7 @@ export interface Profile {
   aboutBody: string;
   footerBio: string;
   location: string;
-  tags: string[];
+  researchInterests: ResearchInterest[];
   socials: SocialLink[];
   affiliations: Affiliation[];
   news: NewsItem[];

@@ -36,6 +36,7 @@ describe("site content", () => {
       expect.objectContaining({
         title: "GenClaw: Code-Driven Agentic Image Generation",
         paperUrl: "https://arxiv.org/abs/2605.30248",
+        githubUrl: "https://github.com/yejy53/GenClaw",
       }),
     );
     expect(
@@ -60,6 +61,25 @@ describe("site content", () => {
         kind: "work",
         organization: "Tencent Hunyuan3D",
         period: "2026.05 - Present",
+        mentors: expect.arrayContaining([
+          expect.objectContaining({
+            name: "Yang Li",
+            href: "https://yang-l1.github.io/",
+          }),
+          expect.objectContaining({ name: "Chunchao Guo" }),
+        ]),
+      }),
+    );
+    expect(profile.affiliations).toContainEqual(
+      expect.objectContaining({
+        organization: "Sun Yat-sen University",
+        role: "M.S. in Remote Sensing Science and Technology",
+        mentors: [
+          {
+            name: "Yiping Chen",
+            href: "https://scholar.google.com/citations?user=e9lv2fUAAAAJ&hl=en",
+          },
+        ],
       }),
     );
   });
@@ -76,6 +96,13 @@ describe("site content", () => {
       expect.objectContaining({
         kind: "website",
         href: "https://serein-six.vercel.app/about",
+        primary: true,
+      }),
+    );
+    expect(profile.socials).toContainEqual(
+      expect.objectContaining({
+        kind: "music",
+        href: "https://music.163.com/#/user/home?id=305616045",
         primary: true,
       }),
     );

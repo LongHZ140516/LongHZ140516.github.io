@@ -2,12 +2,19 @@ import {
   ArrowDown,
   ArrowUpRight,
   Briefcase,
+  Cube,
   EnvelopeSimple,
+  Eye,
   GithubLogo,
   GlobeSimple,
   GraduationCap,
+  ImageSquare,
   MapPin,
+  MusicNotesSimple,
+  Robot,
   Student,
+  TelevisionSimple,
+  XLogo,
 } from "@phosphor-icons/react";
 import { InterestGallery } from "./components/InterestGallery";
 import { ProjectCard } from "./components/ProjectCard";
@@ -15,7 +22,7 @@ import { PublicationPoster } from "./components/PublicationPoster";
 import { SiteHeader } from "./components/SiteHeader";
 import { assetUrl, initialsForName } from "./content/contentUtils";
 import { siteContent } from "./content/loadContent";
-import type { SocialLink } from "./content/types";
+import type { ResearchInterest, SocialLink } from "./content/types";
 
 const { profile, publications, projects, interests } = siteContent;
 
@@ -32,7 +39,35 @@ function socialIcon(social: SocialLink) {
   if (social.kind === "website") {
     return <GlobeSimple size={17} weight="regular" aria-hidden="true" />;
   }
+  if (social.kind === "x") {
+    return <XLogo size={17} weight="regular" aria-hidden="true" />;
+  }
+  if (social.kind === "bilibili") {
+    return <TelevisionSimple size={17} weight="regular" aria-hidden="true" />;
+  }
+  if (social.kind === "music") {
+    return <MusicNotesSimple size={17} weight="regular" aria-hidden="true" />;
+  }
   return <ArrowUpRight size={16} weight="regular" aria-hidden="true" />;
+}
+
+function researchInterestIcon(interest: ResearchInterest) {
+  const props = {
+    size: 17,
+    weight: "regular" as const,
+    "aria-hidden": true,
+  };
+
+  if (interest.icon === "cube") {
+    return <Cube {...props} />;
+  }
+  if (interest.icon === "eye") {
+    return <Eye {...props} />;
+  }
+  if (interest.icon === "image") {
+    return <ImageSquare {...props} />;
+  }
+  return <Robot {...props} />;
 }
 
 function SocialLinkItem({ social }: { social: SocialLink }) {
@@ -97,8 +132,13 @@ export default function App() {
               <div className="hero-focus">
                 <h2>Research interests</h2>
                 <div className="focus-grid">
-                  {profile.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
+                  {profile.researchInterests.map((interest) => (
+                    <span className="focus-item" key={interest.label}>
+                      <span className="focus-icon">
+                        {researchInterestIcon(interest)}
+                      </span>
+                      {interest.label}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -157,6 +197,32 @@ export default function App() {
                       <time>{item.period}</time>
                     </div>
                     <p>{item.role}</p>
+                    {item.mentors?.length ? (
+                      <p className="affiliation-mentors">
+                        <span className="mentor-label">
+                          {item.mentorLabel ?? "Mentors"}:
+                        </span>{" "}
+                        {item.mentors.map((mentor, index) => (
+                          <span
+                            className="affiliation-mentor-item"
+                            key={mentor.name}
+                          >
+                            {index > 0 ? ", " : ""}
+                            {mentor.href ? (
+                              <a
+                                href={mentor.href}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                {mentor.name}
+                              </a>
+                            ) : (
+                              mentor.name
+                            )}
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
                   </div>
                 </article>
               ))}

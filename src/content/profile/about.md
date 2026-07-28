@@ -9,11 +9,15 @@ aboutHeading: "Research with a maker's eye."
 aboutBody: "My work connects visual intelligence with 3D worlds. I also build open tools that make research easier to explore, present, and reuse."
 footerBio: "Researcher and developer working on visual intelligence and 3D."
 location: "Sun Yat-sen University"
-tags:
-  - "3D Generation"
-  - "3D Reconstruction"
-  - "Visual Perception"
-  - "Image Generation"
+researchInterests:
+  - label: "3D Generation & Reconstruction"
+    icon: "cube"
+  - label: "Visual Perception"
+    icon: "eye"
+  - label: "Image Generation"
+    icon: "image"
+  - label: "Agentic AI"
+    icon: "agent"
 
 socials:
   - kind: "scholar"
@@ -39,6 +43,10 @@ socials:
     label: "Bilibili"
     href: "https://space.bilibili.com/15318600"
     primary: true
+  - kind: "music"
+    label: "NetEase Music"
+    href: "https://music.163.com/#/user/home?id=305616045"
+    primary: true
 
 affiliations:
   - kind: "work"
@@ -47,12 +55,21 @@ affiliations:
     period: "2026.05 - Present"
     description: "Internship with the Tencent Hunyuan3D team."
     logo: "./assets/brand/hunyuan.png"
+    mentorLabel: "Mentors"
+    mentors:
+      - name: "Yang Li"
+        href: "https://yang-l1.github.io/"
+      - name: "Chunchao Guo"
   - kind: "education"
     organization: "Sun Yat-sen University"
     role: "M.S. in Remote Sensing Science and Technology"
     period: "2024 - Present"
     description: "Research focus on 3D generation and reconstruction."
     logo: "./assets/brand/sysu.svg"
+    mentorLabel: "Advisor"
+    mentors:
+      - name: "Yiping Chen"
+        href: "https://scholar.google.com/citations?user=e9lv2fUAAAAJ&hl=en"
   - kind: "education"
     organization: "Sun Yat-sen University"
     role: "B.S. in Remote Sensing Science and Technology"
