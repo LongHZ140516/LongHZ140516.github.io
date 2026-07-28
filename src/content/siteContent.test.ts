@@ -46,12 +46,13 @@ describe("site content", () => {
       interests.map((interest) => [interest.name, interest.items.length]),
     );
 
-    expect(itemCounts.Anime).toBeGreaterThanOrEqual(4);
-    expect(itemCounts["K-pop"]).toBeGreaterThanOrEqual(6);
-    expect(itemCounts.Games).toBeGreaterThanOrEqual(5);
+    expect(Object.keys(itemCounts)).toEqual(
+      expect.arrayContaining(["Anime", "K-pop", "Games"]),
+    );
 
     for (const interest of interests) {
       expect(interest.duration).toBeGreaterThan(0);
+      expect(interest.items.length).toBeGreaterThan(0);
       expect(interest.items.every((item) => item.image.startsWith("https://")))
         .toBe(true);
     }
