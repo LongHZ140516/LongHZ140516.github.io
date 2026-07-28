@@ -15,6 +15,7 @@ import {
   Student,
   TelevisionSimple,
   XLogo,
+  type Icon,
 } from "@phosphor-icons/react";
 import { InterestGallery } from "./components/InterestGallery";
 import { ProjectCard } from "./components/ProjectCard";
@@ -22,52 +23,39 @@ import { PublicationPoster } from "./components/PublicationPoster";
 import { SiteHeader } from "./components/SiteHeader";
 import { assetUrl, initialsForName } from "./content/contentUtils";
 import { siteContent } from "./content/loadContent";
-import type { ResearchInterest, SocialLink } from "./content/types";
+import type {
+  ResearchInterest,
+  SocialKind,
+  SocialLink,
+} from "./content/types";
 
 const { profile, publications, projects, interests } = siteContent;
 
+const socialIcons = {
+  scholar: GraduationCap,
+  github: GithubLogo,
+  email: EnvelopeSimple,
+  x: XLogo,
+  bilibili: TelevisionSimple,
+  music: MusicNotesSimple,
+  website: GlobeSimple,
+} satisfies Record<SocialKind, Icon>;
+
+const researchIcons = {
+  cube: Cube,
+  eye: Eye,
+  image: ImageSquare,
+  agent: Robot,
+} satisfies Record<ResearchInterest["icon"], Icon>;
+
 function socialIcon(social: SocialLink) {
-  if (social.kind === "github") {
-    return <GithubLogo size={17} weight="regular" aria-hidden="true" />;
-  }
-  if (social.kind === "email") {
-    return <EnvelopeSimple size={17} weight="regular" aria-hidden="true" />;
-  }
-  if (social.kind === "scholar") {
-    return <GraduationCap size={17} weight="regular" aria-hidden="true" />;
-  }
-  if (social.kind === "website") {
-    return <GlobeSimple size={17} weight="regular" aria-hidden="true" />;
-  }
-  if (social.kind === "x") {
-    return <XLogo size={17} weight="regular" aria-hidden="true" />;
-  }
-  if (social.kind === "bilibili") {
-    return <TelevisionSimple size={17} weight="regular" aria-hidden="true" />;
-  }
-  if (social.kind === "music") {
-    return <MusicNotesSimple size={17} weight="regular" aria-hidden="true" />;
-  }
-  return <ArrowUpRight size={16} weight="regular" aria-hidden="true" />;
+  const SocialIcon = socialIcons[social.kind];
+  return <SocialIcon size={17} weight="regular" aria-hidden="true" />;
 }
 
 function researchInterestIcon(interest: ResearchInterest) {
-  const props = {
-    size: 17,
-    weight: "regular" as const,
-    "aria-hidden": true,
-  };
-
-  if (interest.icon === "cube") {
-    return <Cube {...props} />;
-  }
-  if (interest.icon === "eye") {
-    return <Eye {...props} />;
-  }
-  if (interest.icon === "image") {
-    return <ImageSquare {...props} />;
-  }
-  return <Robot {...props} />;
+  const ResearchIcon = researchIcons[interest.icon];
+  return <ResearchIcon size={17} weight="regular" aria-hidden="true" />;
 }
 
 function SocialLinkItem({ social }: { social: SocialLink }) {
