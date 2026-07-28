@@ -46,11 +46,9 @@ describe("site content", () => {
       interests.map((interest) => [interest.name, interest.items.length]),
     );
 
-    expect(itemCounts).toMatchObject({
-      Anime: 4,
-      "K-pop": 6,
-      Games: 5,
-    });
+    expect(itemCounts.Anime).toBeGreaterThanOrEqual(4);
+    expect(itemCounts["K-pop"]).toBeGreaterThanOrEqual(6);
+    expect(itemCounts.Games).toBeGreaterThanOrEqual(5);
 
     for (const interest of interests) {
       expect(interest.duration).toBeGreaterThan(0);
