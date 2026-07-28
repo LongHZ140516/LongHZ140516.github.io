@@ -1,0 +1,75 @@
+---
+name: "Zilong Huang"
+alias: "Serein"
+role: "Researcher & Developer"
+avatar: "./assets/profile/kana.webp"
+avatarAlt: "Serein's illustrated profile portrait"
+bio: "M.S. researcher exploring 3D generation, reconstruction, visual perception, and the tools that make research easier to share."
+aboutHeading: "Research with a maker's eye."
+aboutBody: "My work connects visual intelligence with 3D worlds. I also build open tools that make research easier to explore, present, and reuse."
+footerBio: "Researcher and developer working on visual intelligence and 3D."
+location: "Sun Yat-sen University"
+tags:
+  - "3D Generation"
+  - "3D Reconstruction"
+  - "Visual Perception"
+  - "Image Generation"
+
+socials:
+  - kind: "scholar"
+    label: "Google Scholar"
+    href: "https://scholar.google.com/citations?user=Nq2HLEUAAAAJ&hl=zh-CN"
+    primary: true
+  - kind: "github"
+    label: "GitHub"
+    href: "https://github.com/LongHZ140516"
+    primary: true
+  - kind: "email"
+    label: "Email"
+    href: "mailto:huangzlong5@mail2.sysu.edu.cn"
+    primary: true
+  - kind: "x"
+    label: "X"
+    href: "https://x.com/HSerein15170"
+  - kind: "bilibili"
+    label: "Bilibili"
+    href: "https://space.bilibili.com/15318600"
+
+affiliations:
+  - kind: "education"
+    organization: "Sun Yat-sen University"
+    role: "M.S. in Remote Sensing Science and Technology"
+    period: "2024 - Present"
+    description: "Research focus on 3D generation and reconstruction."
+    logo: "./assets/brand/sysu.svg"
+  - kind: "education"
+    organization: "Sun Yat-sen University"
+    role: "B.S. in Remote Sensing Science and Technology"
+    period: "2020 - 2024"
+    description: "Graduated with honors."
+    logo: "./assets/brand/sysu.svg"
+
+# Add an internship without touching the React page:
+#  - kind: "work"
+#    organization: "Company name"
+#    role: "Research Intern"
+#    period: "2026"
+#    description: "A short description of the work."
+
+news:
+  - date: "2026.02"
+    title: "MajutsuCity accepted by CVPR 2026"
+    href: "https://arxiv.org/abs/2511.20415"
+  - date: "2026.02"
+    title: "UrbanFeel accepted by ICLR 2026"
+    href: "https://openreview.net/forum?id=OtLC2JNGZf"
+  - date: "2025.09"
+    title: "BLINK-Twice accepted by NeurIPS 2025 Datasets & Benchmarks"
+    href: "https://neurips.cc/virtual/2025/loc/san-diego/poster/121522"
+  - date: "2025.02"
+    title: "Scene4U accepted by CVPR 2025"
+    href: "https://openaccess.thecvf.com/content/CVPR2025/html/Huang_Scene4U_Hierarchical_Layered_3D_Scene_Reconstruction_from_Single_Panoramic_Image_CVPR_2025_paper.html"
+  - date: "2025.02"
+    title: "LOKI accepted by ICLR 2025 as a Spotlight"
+    href: "https://arxiv.org/abs/2410.09732"
+---
