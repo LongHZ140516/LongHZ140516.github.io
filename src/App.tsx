@@ -4,6 +4,7 @@ import {
   Briefcase,
   EnvelopeSimple,
   GithubLogo,
+  GlobeSimple,
   GraduationCap,
   MapPin,
   Student,
@@ -27,6 +28,9 @@ function socialIcon(social: SocialLink) {
   }
   if (social.kind === "scholar") {
     return <GraduationCap size={17} weight="regular" aria-hidden="true" />;
+  }
+  if (social.kind === "website") {
+    return <GlobeSimple size={17} weight="regular" aria-hidden="true" />;
   }
   return <ArrowUpRight size={16} weight="regular" aria-hidden="true" />;
 }
@@ -88,11 +92,6 @@ export default function App() {
               <div className="hero-about">
                 <h2>{profile.aboutHeading}</h2>
                 <p>{profile.aboutBody}</p>
-                <div className="social-links">
-                  {primarySocials.map((social) => (
-                    <SocialLinkItem key={social.label} social={social} />
-                  ))}
-                </div>
               </div>
 
               <div className="hero-focus">
@@ -100,6 +99,15 @@ export default function App() {
                 <div className="focus-grid">
                   {profile.tags.map((tag) => (
                     <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="hero-elsewhere">
+                <h2>Elsewhere</h2>
+                <div className="profile-link-grid">
+                  {primarySocials.map((social) => (
+                    <SocialLinkItem key={social.label} social={social} />
                   ))}
                 </div>
               </div>
@@ -159,8 +167,8 @@ export default function App() {
         <section className="news-strip" aria-labelledby="news-heading">
           <div className="page-shell news-layout">
             <h2 id="news-heading">Recent updates</h2>
-            <div className="news-list">
-              {profile.news.slice(0, 3).map((item) => (
+            <div className="news-list" aria-label="All recent updates">
+              {profile.news.map((item) => (
                 <a
                   key={`${item.date}-${item.title}`}
                   href={item.href}
@@ -184,8 +192,8 @@ export default function App() {
           <div className="section-heading">
             <h2>Publications</h2>
             <p>
-              {publications.length} papers in 3D vision, image generation,
-              visual reasoning, and remote sensing.
+              Peer-reviewed and preprint work across 3D vision, image
+              generation, visual reasoning, and remote sensing.
             </p>
           </div>
           <div className="publication-grid">
@@ -202,7 +210,10 @@ export default function App() {
         <section className="project-section page-shell" id="projects">
           <div className="section-heading">
             <h2>Projects</h2>
-            <p>{projects.length} open-source tools and experiments.</p>
+            <p>
+              Open-source tools and experiments that turn research workflows
+              into reusable systems.
+            </p>
           </div>
           <div className="project-grid">
             {projects.map((project) => (
@@ -214,7 +225,9 @@ export default function App() {
         <section className="interest-section page-shell" id="interests">
           <div className="section-heading">
             <h2>Interests</h2>
-            <p>Anime, K-pop, and games in an evolving visual shelf.</p>
+            <p>
+              A visual shelf of the animation, music, and games I return to.
+            </p>
           </div>
           <div className="interest-gallery">
             {interests.map((interest) => (

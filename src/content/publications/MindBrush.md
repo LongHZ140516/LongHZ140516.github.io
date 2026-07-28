@@ -1,6 +1,6 @@
 ---
 title: "Mind-Brush: Integrating Agentic Cognitive Search and Reasoning into Image Generation"
-venue: "arXiv 2026"
+venue: "SIGGRAPH Asia 2026"
 authors:
   - "Jun He*"
   - "Junyan Ye*"

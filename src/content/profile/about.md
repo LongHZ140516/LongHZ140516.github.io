@@ -24,16 +24,21 @@ socials:
     label: "GitHub"
     href: "https://github.com/LongHZ140516"
     primary: true
+  - kind: "website"
+    label: "Personal site"
+    href: "https://serein-six.vercel.app/about"
+    primary: true
   - kind: "email"
     label: "Email"
     href: "mailto:huangzlong5@mail2.sysu.edu.cn"
-    primary: true
   - kind: "x"
     label: "X"
     href: "https://x.com/HSerein15170"
+    primary: true
   - kind: "bilibili"
     label: "Bilibili"
     href: "https://space.bilibili.com/15318600"
+    primary: true
 
 affiliations:
   - kind: "work"

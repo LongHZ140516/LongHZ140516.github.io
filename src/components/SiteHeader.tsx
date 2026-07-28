@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  ArrowLineUp,
   List,
   Moon,
   Sun,
@@ -9,10 +10,10 @@ import { initialsForName } from "../content/contentUtils";
 import type { Theme } from "../content/types";
 
 const navigation = [
+  { label: "About", href: "#about" },
   { label: "Publications", href: "#publications" },
   { label: "Projects", href: "#projects" },
   { label: "Interests", href: "#interests" },
-  { label: "About", href: "#about" },
 ];
 
 function getInitialTheme(): Theme {
@@ -68,6 +69,14 @@ export function SiteHeader({ name }: { name: string }) {
       </nav>
 
       <div className="header-actions">
+        <a
+          className="icon-button"
+          href="#about"
+          aria-label="Back to top"
+          title="Back to top"
+        >
+          <ArrowLineUp size={19} weight="regular" aria-hidden="true" />
+        </a>
         <button
           className="icon-button"
           type="button"

@@ -1,6 +1,6 @@
 ---
 title: "RealGen: Photorealistic Text-to-Image Generation via Detector-Guided Rewards"
-venue: "arXiv 2025"
+venue: "ECCV 2026 Oral"
 authors:
   - "Junyan Ye*"
   - "Leiqi Zhu*"

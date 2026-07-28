@@ -5,7 +5,8 @@ export type SocialKind =
   | "email"
   | "x"
   | "bilibili"
-  | "music";
+  | "music"
+  | "website";
 
 export interface SocialLink {
   kind: SocialKind;
