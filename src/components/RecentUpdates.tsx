@@ -1,92 +1,21 @@
-import { useCallback, useEffect, useRef } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import type { NewsItem } from "../content/types";
+import { useHorizontalScrollbar } from "./useHorizontalScrollbar";
 
 interface RecentUpdatesProps {
   items: NewsItem[];
 }
 
-interface ScrollbarGeometry {
-  scrollable: boolean;
-  thumbWidth: number;
-  thumbOffset: number;
-}
-
-export function getScrollbarGeometry(
-  viewportWidth: number,
-  contentWidth: number,
-  scrollLeft: number,
-): ScrollbarGeometry {
-  const safeViewport = Math.max(0, viewportWidth);
-  const safeContent = Math.max(safeViewport, contentWidth);
-  const scrollable = safeContent - safeViewport > 1;
-
-  if (!scrollable) {
-    return {
-      scrollable: false,
-      thumbWidth: safeViewport,
-      thumbOffset: 0,
-    };
-  }
-
-  const thumbWidth = Math.min(
-    safeViewport,
-    Math.max(36, (safeViewport * safeViewport) / safeContent),
-  );
-  const maxScroll = safeContent - safeViewport;
-  const maxOffset = safeViewport - thumbWidth;
-  const clampedScroll = Math.min(maxScroll, Math.max(0, scrollLeft));
-
-  return {
-    scrollable: true,
-    thumbWidth,
-    thumbOffset: (clampedScroll / maxScroll) * maxOffset,
-  };
-}
-
 export function RecentUpdates({ items }: RecentUpdatesProps) {
-  const listRef = useRef<HTMLDivElement>(null);
-  const scrollbarRef = useRef<HTMLDivElement>(null);
-  const thumbRef = useRef<HTMLSpanElement>(null);
-
-  const updateScrollbar = useCallback(() => {
-    const list = listRef.current;
-    const scrollbar = scrollbarRef.current;
-    const thumb = thumbRef.current;
-
-    if (!list || !scrollbar || !thumb) {
-      return;
-    }
-
-    const geometry = getScrollbarGeometry(
-      list.clientWidth,
-      list.scrollWidth,
-      list.scrollLeft,
-    );
-
-    scrollbar.hidden = !geometry.scrollable;
-    thumb.style.width = `${geometry.thumbWidth}px`;
-    thumb.style.transform = `translateX(${geometry.thumbOffset}px)`;
-  }, []);
-
-  useEffect(() => {
-    const list = listRef.current;
-
-    if (!list) {
-      return;
-    }
-
-    updateScrollbar();
-    list.addEventListener("scroll", updateScrollbar, { passive: true });
-
-    const resizeObserver = new ResizeObserver(updateScrollbar);
-    resizeObserver.observe(list);
-
-    return () => {
-      list.removeEventListener("scroll", updateScrollbar);
-      resizeObserver.disconnect();
-    };
-  }, [items, updateScrollbar]);
+  const {
+    listRef,
+    scrollbarRef,
+    thumbRef,
+    handlePointerDown,
+    handlePointerMove,
+    finishPointerDrag,
+    handleScrollbarKeyDown,
+  } = useHorizontalScrollbar(items.length);
 
   return (
     <section className="news-strip" aria-labelledby="news-heading">
@@ -95,6 +24,7 @@ export function RecentUpdates({ items }: RecentUpdatesProps) {
         <div className="news-scroll-shell">
           <div
             className="news-list"
+            id="recent-updates-list"
             aria-label="All recent updates"
             ref={listRef}
           >
@@ -117,9 +47,22 @@ export function RecentUpdates({ items }: RecentUpdatesProps) {
           </div>
           <div
             className="news-scrollbar"
-            aria-hidden="true"
+            role="scrollbar"
+            aria-label="Scroll recent updates"
+            aria-controls="recent-updates-list"
+            aria-orientation="horizontal"
+            aria-valuemin={0}
+            aria-valuemax={0}
+            aria-valuenow={0}
             ref={scrollbarRef}
+            tabIndex={0}
             hidden
+            onKeyDown={handleScrollbarKeyDown}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={finishPointerDrag}
+            onPointerCancel={finishPointerDrag}
+            onLostPointerCapture={finishPointerDrag}
           >
             <span className="news-scrollbar__thumb" ref={thumbRef} />
           </div>

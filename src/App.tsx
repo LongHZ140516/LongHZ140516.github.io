@@ -1,6 +1,6 @@
 import {
   ArrowDown,
-  ArrowUpRight,
+  ArrowUp,
   Briefcase,
   Code,
   Cube,
@@ -73,25 +73,16 @@ function externalLinkAttributes(href: string) {
     : { target: "_blank" as const, rel: "noreferrer" };
 }
 
-function SocialLinkItem({ social }: { social: SocialLink }) {
-  return (
-    <a href={social.href} {...externalLinkAttributes(social.href)}>
-      <InlineIcon component={socialIcons[social.kind]} />
-      {social.label}
-    </a>
-  );
-}
-
-function HeroSocialLink({ social }: { social: SocialLink }) {
+function SocialIconLink({ social }: { social: SocialLink }) {
   return (
     <a
-      className="hero-social-link"
+      className="social-icon-link"
       href={social.href}
       {...externalLinkAttributes(social.href)}
       aria-label={social.label}
     >
       <InlineIcon component={socialIcons[social.kind]} />
-      <span className="hero-social-tooltip" aria-hidden="true">
+      <span className="social-icon-tooltip" aria-hidden="true">
         {social.label}
       </span>
     </a>
@@ -142,7 +133,7 @@ export default function App() {
                 </div>
                 <nav className="hero-socials" aria-label="Profile links">
                   {primarySocials.map((social) => (
-                    <HeroSocialLink key={social.label} social={social} />
+                    <SocialIconLink key={social.label} social={social} />
                   ))}
                 </nav>
               </div>
@@ -152,19 +143,6 @@ export default function App() {
               <div className="hero-about">
                 <h2>{profile.aboutHeading}</h2>
                 <p>{profile.aboutBody}</p>
-                <div className="profile-notes" aria-label="Personal notes">
-                  {profile.profileNotes.map((note) => (
-                    <p className="profile-note" key={note.text}>
-                      <span className="profile-note__icon">
-                        <InlineIcon
-                          component={profileNoteIcons[note.icon]}
-                          size={15}
-                        />
-                      </span>
-                      <span>{note.text}</span>
-                    </p>
-                  ))}
-                </div>
               </div>
 
               <div className="hero-focus">
@@ -183,6 +161,19 @@ export default function App() {
                 </div>
               </div>
 
+              <div className="profile-notes" aria-label="Personal notes">
+                {profile.profileNotes.map((note) => (
+                  <p className="profile-note" key={note.text}>
+                    <span className="profile-note__icon">
+                      <InlineIcon
+                        component={profileNoteIcons[note.icon]}
+                        size={15}
+                      />
+                    </span>
+                    <span>{note.text}</span>
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -315,7 +306,7 @@ export default function App() {
 
       <footer className="site-footer">
         <div className="page-shell footer-layout">
-          <div>
+          <div className="footer-identity">
             <span className="brand-monogram" aria-hidden="true">
               {initialsForName(profile.name)}
             </span>
@@ -323,14 +314,20 @@ export default function App() {
               {profile.name}. {profile.footerBio}
             </p>
           </div>
-          <div className="footer-links">
+          <nav className="footer-links" aria-label="Footer links">
             {profile.socials.map((social) => (
-              <SocialLinkItem key={social.label} social={social} />
+              <SocialIconLink key={social.label} social={social} />
             ))}
-          </div>
-          <a className="back-to-top" href="#about">
-            Back to top
-            <ArrowUpRight size={15} weight="regular" aria-hidden="true" />
+          </nav>
+          <a
+            className="social-icon-link footer-top-link"
+            href="#about"
+            aria-label="Back to top"
+          >
+            <ArrowUp size={17} weight="regular" aria-hidden="true" />
+            <span className="social-icon-tooltip" aria-hidden="true">
+              Back to top
+            </span>
           </a>
         </div>
       </footer>
