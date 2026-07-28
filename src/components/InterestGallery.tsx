@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from "react";
-import { ArrowUpRight, ImageBroken } from "@phosphor-icons/react";
+import { ImageBroken } from "@phosphor-icons/react";
 import type { Interest, InterestItem } from "../content/types";
 
 interface InterestGalleryProps {
@@ -16,14 +16,10 @@ function GalleryItem({
   const [imageFailed, setImageFailed] = useState(false);
 
   return (
-    <a
+    <figure
       className="gallery-card"
-      href={item.href}
-      target="_blank"
-      rel="noreferrer"
-      tabIndex={duplicate ? -1 : undefined}
       aria-hidden={duplicate || undefined}
-      aria-label={`${item.name}, ${item.meta}`}
+      aria-label={duplicate ? undefined : `${item.name}, ${item.meta}`}
     >
       {imageFailed ? (
         <span className="gallery-card__fallback">
@@ -39,11 +35,11 @@ function GalleryItem({
           onError={() => setImageFailed(true)}
         />
       )}
-      <span className="gallery-card__caption">
+      <figcaption className="gallery-card__caption">
         <strong>{item.name}</strong>
         <span>{item.meta}</span>
-      </span>
-    </a>
+      </figcaption>
+    </figure>
   );
 }
 
@@ -58,16 +54,13 @@ export function InterestGallery({ interest }: InterestGalleryProps) {
         <p>{interest.subtitle}</p>
         <h3>{interest.name}</h3>
         <p>{interest.description}</p>
-        <a href={interest.href} target="_blank" rel="noreferrer">
-          {interest.sourceLabel}
-          <ArrowUpRight size={15} weight="regular" aria-hidden="true" />
-        </a>
       </div>
 
       <div
         className="interest-marquee"
         style={marqueeStyle}
         aria-label={`${interest.name} gallery`}
+        tabIndex={0}
       >
         <div className="interest-track">
           <div className="interest-set">

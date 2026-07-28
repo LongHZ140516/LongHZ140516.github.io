@@ -73,6 +73,25 @@ function SocialLinkItem({ social }: { social: SocialLink }) {
   );
 }
 
+function HeroSocialLink({ social }: { social: SocialLink }) {
+  const isExternal = !social.href.startsWith("mailto:");
+
+  return (
+    <a
+      className="hero-social-link"
+      href={social.href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
+      aria-label={social.label}
+    >
+      {socialIcon(social)}
+      <span className="hero-social-tooltip" aria-hidden="true">
+        {social.label}
+      </span>
+    </a>
+  );
+}
+
 export default function App() {
   const primarySocials = profile.socials.filter((social) => social.primary);
 
@@ -90,6 +109,11 @@ export default function App() {
               <p className="eyebrow">{profile.role}</p>
               <h1>{profile.name}</h1>
               <p className="hero-bio">{profile.bio}</p>
+              <nav className="hero-socials" aria-label="Profile links">
+                {primarySocials.map((social) => (
+                  <HeroSocialLink key={social.label} social={social} />
+                ))}
+              </nav>
               <div className="hero-actions">
                 <a className="button button--primary" href="#publications">
                   Publications
@@ -131,14 +155,6 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="hero-elsewhere">
-                <h2>Elsewhere</h2>
-                <div className="profile-link-grid">
-                  {primarySocials.map((social) => (
-                    <SocialLinkItem key={social.label} social={social} />
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
 
