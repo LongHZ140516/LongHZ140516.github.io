@@ -58,15 +58,15 @@ function researchInterestIcon(interest: ResearchInterest) {
   return <ResearchIcon size={17} weight="regular" aria-hidden="true" />;
 }
 
-function SocialLinkItem({ social }: { social: SocialLink }) {
-  const isExternal = !social.href.startsWith("mailto:");
+function externalLinkAttributes(href: string) {
+  return href.startsWith("mailto:")
+    ? {}
+    : { target: "_blank" as const, rel: "noreferrer" };
+}
 
+function SocialLinkItem({ social }: { social: SocialLink }) {
   return (
-    <a
-      href={social.href}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noreferrer" : undefined}
-    >
+    <a href={social.href} {...externalLinkAttributes(social.href)}>
       {socialIcon(social)}
       {social.label}
     </a>
@@ -74,14 +74,11 @@ function SocialLinkItem({ social }: { social: SocialLink }) {
 }
 
 function HeroSocialLink({ social }: { social: SocialLink }) {
-  const isExternal = !social.href.startsWith("mailto:");
-
   return (
     <a
       className="hero-social-link"
       href={social.href}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noreferrer" : undefined}
+      {...externalLinkAttributes(social.href)}
       aria-label={social.label}
     >
       {socialIcon(social)}

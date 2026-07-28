@@ -91,7 +91,7 @@ export interface InterestItem {
   meta: string;
   image: string;
   imageAlt: string;
-  href: string;
+  href?: string;
 }
 
 export interface Interest {
@@ -99,8 +99,8 @@ export interface Interest {
   name: string;
   subtitle: string;
   description: string;
-  href: string;
-  sourceLabel: string;
+  href?: string;
+  sourceLabel?: string;
   duration: number;
   items: InterestItem[];
 }

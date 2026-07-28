@@ -8,8 +8,6 @@ const interest: Interest = {
   name: "Anime",
   subtitle: "Animation",
   description: "A display-only gallery.",
-  href: "https://example.com/anime",
-  sourceLabel: "Full anime list",
   duration: 60,
   items: [
     {
@@ -17,7 +15,6 @@ const interest: Interest = {
       meta: "Example genre",
       image: "https://example.com/cover.jpg",
       imageAlt: "Example cover",
-      href: "https://example.com/title",
     },
   ],
 };
