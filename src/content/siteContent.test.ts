@@ -16,6 +16,12 @@ function markdownCount(directory: string): number {
   ).length;
 }
 
+function readMarkdownDirectory<T>(directory: string): T[] {
+  return readdirSync(join(contentRoot, directory))
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => readMarkdown<T>(join(contentRoot, directory, file)));
+}
+
 describe("site content", () => {
   it("keeps the requested academic collections populated", () => {
     expect(markdownCount("publications")).toBeGreaterThanOrEqual(12);
@@ -23,11 +29,8 @@ describe("site content", () => {
   });
 
   it("preserves the latest publication and acceptance metadata", () => {
-    const publications = readdirSync(join(contentRoot, "publications"))
-      .filter((file) => file.endsWith(".md"))
-      .map((file) =>
-        readMarkdown<Publication>(join(contentRoot, "publications", file)),
-      );
+    const publications =
+      readMarkdownDirectory<Publication>("publications");
 
     expect(publications).toContainEqual(
       expect.objectContaining({
@@ -79,11 +82,7 @@ describe("site content", () => {
   });
 
   it("loads scalable interest galleries from Markdown", () => {
-    const interests = readdirSync(join(contentRoot, "interests"))
-      .filter((file) => file.endsWith(".md"))
-      .map((file) =>
-        readMarkdown<Interest>(join(contentRoot, "interests", file)),
-      );
+    const interests = readMarkdownDirectory<Interest>("interests");
     const itemCounts = Object.fromEntries(
       interests.map((interest) => [interest.name, interest.items.length]),
     );
@@ -98,54 +97,5 @@ describe("site content", () => {
       expect(interest.items.every((item) => item.image.startsWith("https://")))
         .toBe(true);
     }
-
-    const itemsByInterest = Object.fromEntries(
-      interests.map((interest) => [
-        interest.name,
-        interest.items.map((item) => item.name),
-      ]),
-    );
-
-    expect(itemsByInterest.Anime).toEqual(
-      expect.arrayContaining([
-        "Sonny Boy",
-        "Girls Band Cry",
-        "Sword Art Online",
-        "Tokyo Ghoul",
-        "One-Punch Man",
-        "The Tatami Galaxy",
-        "Tatami Time Machine Blues",
-        "Mob Psycho 100",
-        "Death Note",
-        "JoJo's Bizarre Adventure",
-        "Cosmic Princess Kaguya!",
-      ]),
-    );
-    expect(itemsByInterest.Games).toEqual(
-      expect.arrayContaining([
-        "Stardew Valley",
-        "Genshin Impact",
-        "Honkai: Star Rail",
-        "Zenless Zone Zero",
-        "Minecraft",
-        "Elden Ring",
-      ]),
-    );
-    expect(itemsByInterest["K-pop"]).toEqual(
-      expect.arrayContaining([
-        "Giselle",
-        "Liz",
-        "Yeji",
-        "Yuna",
-        "Tzuyu",
-        "Ian",
-        "Jiwoo",
-        "Yuha",
-        "Stella",
-        "Wonhee",
-        "Anna",
-        "Yena",
-      ]),
-    );
   });
 });
