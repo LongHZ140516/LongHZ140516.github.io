@@ -23,6 +23,7 @@ npm run check
 - `src/content/publications/*.md`：每篇论文一份文件
 - `src/content/projects/*.md`：每个项目一份文件
 - `src/content/interests/*.md`：每个兴趣分类一份文件，分类内可维护任意数量的图片条目
+- `src/assets/interests/`：由 Vite 打包的本地兴趣图片
 - `public/assets/`：论文、项目、头像与学校标识等静态资源
 
 新增内容时复制同目录下任意 Markdown 文件并修改 frontmatter。文件名会自动成为稳定的内容标识，不需要修改 React 组件。
@@ -35,6 +36,7 @@ npm run check
 
 - `duration` 控制一轮自动滚动所需的秒数
 - `items` 中的每一项包含名称、简短说明、图片 URL、替代文本与可选来源链接
+- 远程图片可直接填写 `image: "https://..."`；本地图片放入 `src/assets/interests/` 后，填写相对于该目录的 `image: "local:kpop/example.webp"`
 - 增删条目后画廊会自动调整长度，不需要修改组件
 - 页面只展示兴趣图片，不渲染分类或单项跳转；分类与条目的来源链接可选，仅作为 Markdown 元数据保留
 - 鼠标悬停时滚动会暂停；系统启用“减少动态效果”时会改为手动横向滚动

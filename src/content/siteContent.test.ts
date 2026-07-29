@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseFrontmatter } from "./frontmatter";
@@ -128,11 +128,35 @@ describe("site content", () => {
       expect.arrayContaining(["Anime", "K-pop", "Games"]),
     );
 
+    const imageSources = interests.flatMap((interest) =>
+      interest.items.map((item) => item.image),
+    );
+
     for (const interest of interests) {
       expect(interest.duration).toBeGreaterThan(0);
       expect(interest.items.length).toBeGreaterThan(0);
-      expect(interest.items.every((item) => item.image.startsWith("https://")))
-        .toBe(true);
+      expect(
+        interest.items.every(
+          (item) =>
+            item.image.startsWith("https://") ||
+            item.image.startsWith("local:"),
+        ),
+      ).toBe(true);
+    }
+
+    expect(imageSources.some((image) => image.startsWith("local:"))).toBe(true);
+    for (const image of imageSources.filter((source) =>
+      source.startsWith("local:"),
+    )) {
+      expect(
+        existsSync(
+          join(
+            process.cwd(),
+            "src/assets/interests",
+            image.slice("local:".length),
+          ),
+        ),
+      ).toBe(true);
     }
   });
 });
