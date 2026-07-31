@@ -45,4 +45,4 @@ npm run check
 
 仓库包含 `.github/workflows/deploy.yml`。在 GitHub 仓库设置中将 Pages 的 Source 设为 `GitHub Actions`，之后推送到 `main` 即可触发构建与发布。
 
-Vite 的 `base` 使用相对路径，因此也可部署到其他静态托管平台。当前站点没有前端路由，刷新和深链接不会依赖服务端重写。
+当前仓库是用户主页仓库 `LongHZ140516.github.io`，因此 Vite 的 `base` 设置为 `/`，发布地址为 `https://longhz140516.github.io/`。当前站点没有前端路由，刷新和页面锚点不会依赖服务端重写。

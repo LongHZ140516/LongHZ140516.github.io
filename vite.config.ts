@@ -50,7 +50,8 @@ function markdownFrontmatter() {
 }
 
 export default defineConfig({
-  base: "./",
+  // LongHZ140516.github.io is a user site, so GitHub Pages serves it at `/`.
+  base: "/",
   plugins: [markdownFrontmatter(), react()],
   build: {
     target: "es2022",

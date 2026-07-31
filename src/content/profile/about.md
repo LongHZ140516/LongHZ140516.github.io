@@ -4,7 +4,7 @@ alias: "Serein"
 role: "Researcher & Developer"
 avatar: "./assets/profile/kana.webp"
 avatarAlt: "Serein's illustrated profile portrait"
-bio: "M.S. researcher exploring 3D generation, reconstruction, visual perception, and the tools that make research easier to share."
+bio: "M.S. researcher exploring 3D generation, reconstruction, visual perception, and the projects that connect them."
 aboutHeading: "Words mean nothing without action."
 aboutBody: >-
   The more I learn, the more I realize how small I am in a world full of remarkable people. I know I am not exceptional, and I may never reach many of the heights I admire. Still, I want to follow what genuinely interests me—to stay curious about new things and build projects simply because they feel worth making. I want to think carefully before I act, but never let reflection become an excuse for inaction, or let that curiosity fade quietly. To keep learning, creating, and turning ideas into something real—perhaps that is the person I hope to become.
@@ -86,6 +86,12 @@ affiliations:
     logo: "./assets/brand/sysu.svg"
 
 news:
+  - date: "2026.07"
+    title: "Mind-Brush accepted by SIGGRAPH ASIA 2026"
+    href: "https://arxiv.org/abs/2602.01756"
+  - date: "2026.06"
+    title: "RealGen accepted by ECCV 2026 as an Oral"
+    href: "https://arxiv.org/abs/2512.00473"
   - date: "2026.02"
     title: "MajutsuCity accepted by CVPR 2026"
     href: "https://arxiv.org/abs/2511.20415"
