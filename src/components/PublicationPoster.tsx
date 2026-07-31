@@ -32,9 +32,7 @@ export function PublicationPoster({
   publication,
   highlightedAuthor,
 }: PublicationPosterProps) {
-  const year =
-    publication.venue.match(/\b20\d{2}\b/)?.[0] ??
-    new Date(publication.date).getUTCFullYear();
+  const year = new Date(publication.date).getUTCFullYear();
 
   return (
     <article
