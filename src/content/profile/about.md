@@ -5,8 +5,9 @@ role: "Researcher & Developer"
 avatar: "./assets/profile/kana.webp"
 avatarAlt: "Serein's illustrated profile portrait"
 bio: "M.S. researcher exploring 3D generation, reconstruction, visual perception, and the tools that make research easier to share."
-aboutHeading: "3D vision, generative models, and open tools."
-aboutBody: "I study how visual intelligence can generate and reconstruct 3D worlds, while building tools that make research easier to explore and reuse."
+aboutHeading: "Words mean nothing without action."
+aboutBody: >-
+  The more I learn, the more I realize how small I am in a world full of remarkable people. I know I am not exceptional, and I may never reach many of the heights I admire. Still, I want to follow what genuinely interests me—to stay curious about new things and build projects simply because they feel worth making. I want to think carefully before I act, but never let reflection become an excuse for inaction, or let that curiosity fade quietly. To keep learning, creating, and turning ideas into something real—perhaps that is the person I hope to become.
 footerBio: "Researcher and developer working on visual intelligence and 3D."
 location: "Sun Yat-sen University"
 profileNotes:

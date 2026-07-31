@@ -96,8 +96,9 @@ describe("site content", () => {
         expect.objectContaining({ icon: "culture" }),
       ]),
     );
-    expect(profile.aboutHeading).toBe(
-      "3D vision, generative models, and open tools.",
+    expect(profile.aboutHeading).toBe("Words mean nothing without action.");
+    expect(profile.aboutBody).toContain(
+      "never let reflection become an excuse for inaction",
     );
     expect(
       profile.socials.find((social) => social.kind === "email")?.primary,
