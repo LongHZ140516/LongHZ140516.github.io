@@ -70,7 +70,9 @@ Markdown content starts here.
 - 正文和 Markdown 渲染器会拆分到独立资源，打开主页时只加载轻量元数据
 - 每篇文章会在构建时生成 `/blog/<文件名>/index.html`，可在 GitHub Pages 中直接打开或刷新
 - 主页 Blog 模块按 `date` 从新到旧排列；设置 `draft: true` 的文章不会出现在主页、静态路径或站点地图中
-- 首页在桌面端每行展示三篇文章，平板端两篇，移动端一篇；设置 `featured: true` 只增加强调色，不会改变卡片尺寸
+- Blog 在桌面端按 3 列 × 3 行分页，平板端每页 6 篇，移动端每页 4 篇；设置 `featured: true` 只增加强调色，不会改变卡片尺寸
+- Publication 在桌面端按 4 列 × 3 行分页，并随屏幕宽度自动调整为每页 9、6 或 4 篇
+- 分页会继续按现有 Markdown 日期顺序读取内容，新增或删除文章与论文时不需要修改组件
 
 ## GitHub Pages
 

@@ -8,7 +8,13 @@ import {
   useRef,
   useState,
 } from "react";
-import { ArrowUpRight, Check, Copy } from "@phosphor-icons/react";
+import {
+  ArrowUpRight,
+  CaretDown,
+  Check,
+  Copy,
+  FileCode,
+} from "@phosphor-icons/react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
@@ -84,7 +90,10 @@ function MarkdownPre({ children, ...props }: ComponentPropsWithoutRef<"pre">) {
   return (
     <div className="code-frame">
       <div className="code-frame__toolbar">
-        <span>{language ?? "text"}</span>
+        <span className="code-frame__language">
+          <FileCode size={14} weight="regular" aria-hidden="true" />
+          {language ?? "text"}
+        </span>
         <button
           type="button"
           onClick={copySource}
@@ -174,7 +183,15 @@ function ArticleToc({ items }: { items: TableOfContentsItem[] }) {
         {links}
       </aside>
       <details className="article-toc article-toc--mobile">
-        <summary>On this page</summary>
+        <summary>
+          <span>On this page</span>
+          <CaretDown
+            className="article-toc__caret"
+            size={15}
+            weight="bold"
+            aria-hidden="true"
+          />
+        </summary>
         {links}
       </details>
     </>

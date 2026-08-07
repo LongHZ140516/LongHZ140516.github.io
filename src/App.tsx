@@ -21,10 +21,12 @@ import {
 } from "@phosphor-icons/react";
 import { BlogCard } from "./components/BlogCard";
 import { InterestGallery } from "./components/InterestGallery";
+import { PaginatedGrid } from "./components/PaginatedGrid";
 import { ProjectCard } from "./components/ProjectCard";
 import { PublicationPoster } from "./components/PublicationPoster";
 import { RecentUpdates } from "./components/RecentUpdates";
 import { SiteHeader } from "./components/SiteHeader";
+import { useResponsivePageSize } from "./components/useResponsivePageSize";
 import { blogSlugFromPath } from "./content/blogUtils";
 import { assetUrl, initialsForName } from "./content/contentUtils";
 import { siteContent } from "./content/loadContent";
@@ -96,6 +98,16 @@ function SocialIconLink({ social }: { social: SocialLink }) {
 
 export default function App() {
   const primarySocials = profile.socials.filter((social) => social.primary);
+  const publicationPageSize = useResponsivePageSize(
+    "--publication-columns",
+    "--publication-rows",
+    12,
+  );
+  const blogPageSize = useResponsivePageSize(
+    "--blog-columns",
+    "--blog-rows",
+    9,
+  );
   const blogSlug = blogSlugFromPath(window.location.pathname);
   const blogPost = blogs.find((post) => post.slug === blogSlug);
   const isBlogPage = blogSlug !== null;
@@ -301,15 +313,20 @@ export default function App() {
                   generation, visual reasoning, and remote sensing.
                 </p>
               </div>
-              <div className="publication-grid">
-                {publications.map((publication) => (
+              <PaginatedGrid
+                ariaLabel="Publication pages"
+                className="publication-grid"
+                getKey={(publication) => publication.slug}
+                itemLabel="publications"
+                items={publications}
+                pageSize={publicationPageSize}
+                renderItem={(publication) => (
                   <PublicationPoster
-                    key={publication.slug}
                     publication={publication}
                     highlightedAuthor={profile.name}
                   />
-                ))}
-              </div>
+                )}
+              />
             </section>
 
             <section className="project-section page-shell" id="projects">
@@ -335,11 +352,15 @@ export default function App() {
                   through writing.
                 </p>
               </div>
-              <div className="blog-grid">
-                {blogs.map((post) => (
-                  <BlogCard key={post.slug} post={post} />
-                ))}
-              </div>
+              <PaginatedGrid
+                ariaLabel="Blog pages"
+                className="blog-grid"
+                getKey={(post) => post.slug}
+                itemLabel="articles"
+                items={blogs}
+                pageSize={blogPageSize}
+                renderItem={(post) => <BlogCard post={post} />}
+              />
             </section>
 
             <section className="interest-section page-shell" id="interests">
