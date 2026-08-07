@@ -14,6 +14,6 @@ image: "./assets/publications/urbanfeel.webp"
 imageAlt: "UrbanFeel benchmark examples across city scenes"
 paperUrl: "https://arxiv.org/abs/2509.22228"
 date: "2025-09-26"
-highlight: true
+highlight: false
 tags: ["Urban Perception", "Benchmark"]
 ---
