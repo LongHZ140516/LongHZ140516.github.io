@@ -1629,7 +1629,8 @@ button {
   min-width: 0;
 }
 
-.archive-field > span:first-child {
+.archive-field > span:first-child,
+.archive-field__label {
   color: var(--muted);
   font-family: var(--mono);
   font-size: 9px;
@@ -1638,8 +1639,7 @@ button {
   text-transform: uppercase;
 }
 
-.archive-search-wrap,
-.archive-select-wrap {
+.archive-search-wrap {
   position: relative;
   display: flex;
   align-items: center;
@@ -1654,8 +1654,7 @@ button {
     color 160ms ease;
 }
 
-.archive-search-wrap:focus-within,
-.archive-select-wrap:focus-within {
+.archive-search-wrap:focus-within {
   border-color: var(--accent-strong);
   box-shadow: inset 3px 0 0 var(--accent);
   color: var(--accent-strong);
@@ -1666,8 +1665,7 @@ button {
   margin-left: 14px;
 }
 
-.archive-search-wrap input,
-.archive-select-wrap select {
+.archive-search-wrap input {
   width: 100%;
   min-width: 0;
   height: 100%;
@@ -1710,16 +1708,134 @@ button {
   color: var(--accent-strong);
 }
 
-.archive-select-wrap select {
-  padding: 0 40px 0 14px;
-  appearance: none;
+.archive-field--select {
+  position: relative;
+}
+
+.archive-field--select[data-open="true"] {
+  z-index: 5;
+}
+
+.archive-select {
+  position: relative;
+  min-width: 0;
+}
+
+.archive-select__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  outline: 0;
+  background: var(--paper-raised);
+  color: var(--ink);
+  font: 12px/1.4 var(--sans);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+
+.archive-select__trigger > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.archive-select__trigger > svg {
+  flex: none;
+  color: var(--muted);
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.archive-select__trigger:hover,
+.archive-select__trigger:focus-visible,
+.archive-field--select[data-open="true"] .archive-select__trigger {
+  border-color: var(--accent-strong);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.archive-select__trigger:hover > svg,
+.archive-select__trigger:focus-visible > svg,
+.archive-field--select[data-open="true"] .archive-select__trigger > svg {
+  color: var(--accent-strong);
+}
+
+.archive-field--select[data-open="true"] .archive-select__trigger > svg {
+  transform: rotate(180deg);
+}
+
+.archive-select__menu {
+  position: absolute;
+  z-index: 6;
+  top: calc(100% + 7px);
+  right: 0;
+  left: 0;
+  display: grid;
+  max-height: min(280px, 45vh);
+  padding: 6px;
+  overflow-y: auto;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  box-shadow: 6px 6px 0 var(--shadow-solid);
+  scrollbar-color: var(--accent) transparent;
+  scrollbar-width: thin;
+}
+
+.archive-select__menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.archive-select__menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.archive-select__menu::-webkit-scrollbar-thumb {
+  border: 1px solid var(--paper-raised);
+  background: var(--accent);
+}
+
+.archive-select__option {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  padding: 8px 9px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 12px/1.35 var(--sans);
+  text-align: left;
   cursor: pointer;
 }
 
-.archive-select-wrap > svg {
-  position: absolute;
-  right: 14px;
-  pointer-events: none;
+.archive-select__option[data-active="true"] {
+  background: var(--control-hover);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.archive-select__option[aria-selected="true"] {
+  color: var(--accent-strong);
+  font-weight: 650;
+}
+
+.archive-select__check {
+  display: inline-grid;
+  width: 18px;
+  place-items: center;
+  color: var(--accent-strong);
 }
 
 .archive-results-bar {

@@ -1,10 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import {
-  ArrowLeft,
-  CaretDown,
-  MagnifyingGlass,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowLeft, MagnifyingGlass, X } from "@phosphor-icons/react";
 import {
   filterBlogs,
   filterProjects,
@@ -14,6 +9,7 @@ import {
 } from "../content/collectionUtils";
 import { blogPageFromSearch } from "../content/blogUtils";
 import type { BlogPost, Project, Publication } from "../content/types";
+import { ArchiveSelect } from "./ArchiveSelect";
 import { BlogCard } from "./BlogCard";
 import { PaginatedGrid } from "./PaginatedGrid";
 import { ProjectCard } from "./ProjectCard";
@@ -71,35 +67,6 @@ const archiveCopy: Record<
     itemLabel: "projects",
   },
 };
-
-function ArchiveSelect({
-  label,
-  onChange,
-  options,
-  value,
-}: {
-  label: string;
-  onChange: (value: string) => void;
-  options: readonly string[];
-  value: string;
-}) {
-  return (
-    <label className="archive-field archive-field--select">
-      <span>{label}</span>
-      <span className="archive-select-wrap">
-        <select value={value} onChange={(event) => onChange(event.target.value)}>
-          <option value="">All {label.toLocaleLowerCase("en")}</option>
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-        <CaretDown size={14} weight="bold" aria-hidden="true" />
-      </span>
-    </label>
-  );
-}
 
 export default function CollectionGalleryPage({
   blogs,
