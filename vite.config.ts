@@ -73,29 +73,48 @@ function collectionHref(path: string): string {
   return `/${path}/`;
 }
 
-function makeCollectionHtml(
+interface PageMetadata {
+  canonical: string;
+  description: string;
+  title: string;
+}
+
+function applyPageMetadata(
   sourceHtml: string,
-  page: (typeof collectionPages)[number],
+  metadata: PageMetadata,
 ): string {
-  const canonical = `${siteOrigin}${collectionHref(page.path)}`;
   let html = sourceHtml
-    .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(page.title)}</title>`)
+    .replace(
+      /<title>[^<]*<\/title>/,
+      `<title>${escapeHtml(metadata.title)}</title>`,
+    )
     .replace(
       /<link rel="canonical" href="[^"]*" \/>/,
-      `<link rel="canonical" href="${canonical}" />`,
+      `<link rel="canonical" href="${metadata.canonical}" />`,
     )
     .replace(/\s*<link\s+rel="preload"[\s\S]*?fetchpriority="high"\s*\/>/, "");
 
-  html = replaceMetaContent(html, "name", "description", page.description);
-  html = replaceMetaContent(html, "property", "og:title", page.title);
+  html = replaceMetaContent(html, "name", "description", metadata.description);
+  html = replaceMetaContent(html, "property", "og:title", metadata.title);
   html = replaceMetaContent(
     html,
     "property",
     "og:description",
-    page.description,
+    metadata.description,
   );
 
   return html;
+}
+
+function makeCollectionHtml(
+  sourceHtml: string,
+  page: (typeof collectionPages)[number],
+): string {
+  return applyPageMetadata(sourceHtml, {
+    canonical: `${siteOrigin}${collectionHref(page.path)}`,
+    description: page.description,
+    title: page.title,
+  });
 }
 
 function blogFiles(): string[] {
@@ -127,22 +146,11 @@ function makeBlogHtml(
 ): string {
   const canonical = absoluteBlogUrl(slug);
   const title = `${metadata.title} | Zilong Huang`;
-  let html = sourceHtml
-    .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`)
-    .replace(
-      /<link rel="canonical" href="[^"]*" \/>/,
-      `<link rel="canonical" href="${canonical}" />`,
-    )
-    .replace(/\s*<link\s+rel="preload"[\s\S]*?fetchpriority="high"\s*\/>/, "");
-
-  html = replaceMetaContent(html, "name", "description", metadata.summary);
-  html = replaceMetaContent(html, "property", "og:title", title);
-  html = replaceMetaContent(
-    html,
-    "property",
-    "og:description",
-    metadata.summary,
-  );
+  let html = applyPageMetadata(sourceHtml, {
+    canonical,
+    description: metadata.summary,
+    title,
+  });
   html = replaceMetaContent(html, "property", "og:type", "article");
 
   const articleMeta = `\n    <meta property="article:published_time" content="${escapeHtml(metadata.date)}" />`;

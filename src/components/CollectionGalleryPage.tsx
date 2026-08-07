@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   ArrowLeft,
   CaretDown,
@@ -26,6 +26,23 @@ interface CollectionGalleryPageProps {
   kind: CollectionRoute;
   projects: readonly Project[];
   publications: readonly Publication[];
+}
+
+interface ArchiveEntry {
+  key: string;
+  render: (page: number) => ReactNode;
+}
+
+interface ArchiveModel {
+  ariaLabel: string;
+  className: string;
+  entries: ArchiveEntry[];
+  pageSize: number;
+  secondaryFilter?: {
+    label: string;
+    options: string[];
+  };
+  topics: string[];
 }
 
 const archiveCopy: Record<
@@ -120,51 +137,94 @@ export default function CollectionGalleryPage({
     };
   }, [copy.title]);
 
-  const topics = useMemo(() => {
-    const source =
-      kind === "blog" ? blogs : kind === "projects" ? projects : publications;
+  const archive = useMemo<ArchiveModel>(() => {
+    switch (kind) {
+      case "blog": {
+        const entries = filterBlogs(blogs, {
+          query,
+          topic,
+          category: secondaryFacet,
+        }).map((post) => ({
+          key: post.slug,
+          render: (page: number) => (
+            <BlogCard post={post} returnFrom="archive" returnPage={page} />
+          ),
+        }));
 
-    return uniqueOptions(source.flatMap((item) => item.tags));
-  }, [blogs, kind, projects, publications]);
-  const secondaryOptions = useMemo(
-    () =>
-      kind === "blog"
-        ? uniqueOptions(blogs.map((post) => post.category))
-        : kind === "publications"
-          ? uniqueOptions(
+        return {
+          ariaLabel: "Blog archive pages",
+          className: "blog-grid archive-grid",
+          entries,
+          pageSize: blogPageSize,
+          secondaryFilter: {
+            label: "Categories",
+            options: uniqueOptions(blogs.map((post) => post.category)),
+          },
+          topics: uniqueOptions(blogs.flatMap((post) => post.tags)),
+        };
+      }
+      case "projects": {
+        const entries = filterProjects(projects, { query, topic }).map(
+          (project) => ({
+            key: project.slug,
+            render: () => <ProjectCard project={project} />,
+          }),
+        );
+
+        return {
+          ariaLabel: "Project archive pages",
+          className: "project-grid archive-grid",
+          entries,
+          pageSize: projectPageSize,
+          topics: uniqueOptions(projects.flatMap((project) => project.tags)),
+        };
+      }
+      case "publications": {
+        const entries = filterPublications(publications, {
+          query,
+          topic,
+          year: secondaryFacet,
+        }).map((publication) => ({
+          key: publication.slug,
+          render: () => (
+            <PublicationPoster
+              publication={publication}
+              highlightedAuthor={highlightedAuthor}
+            />
+          ),
+        }));
+
+        return {
+          ariaLabel: "Publication archive pages",
+          className: "publication-grid archive-grid",
+          entries,
+          pageSize: publicationPageSize,
+          secondaryFilter: {
+            label: "Years",
+            options: uniqueOptions(
               publications.map((publication) => publication.date.slice(0, 4)),
-            ).reverse()
-          : [],
-    [blogs, kind, publications],
-  );
-  const filteredBlogs = useMemo(
-    () =>
-      filterBlogs(blogs, {
-        query,
-        topic,
-        category: kind === "blog" ? secondaryFacet : "",
-      }),
-    [blogs, kind, query, secondaryFacet, topic],
-  );
-  const filteredProjects = useMemo(
-    () => filterProjects(projects, { query, topic }),
-    [projects, query, topic],
-  );
-  const filteredPublications = useMemo(
-    () =>
-      filterPublications(publications, {
-        query,
-        topic,
-        year: kind === "publications" ? secondaryFacet : "",
-      }),
-    [kind, publications, query, secondaryFacet, topic],
-  );
-  const resultCount =
-    kind === "blog"
-      ? filteredBlogs.length
-      : kind === "projects"
-        ? filteredProjects.length
-        : filteredPublications.length;
+            ).reverse(),
+          },
+          topics: uniqueOptions(
+            publications.flatMap((publication) => publication.tags),
+          ),
+        };
+      }
+    }
+  }, [
+    blogPageSize,
+    blogs,
+    highlightedAuthor,
+    kind,
+    projectPageSize,
+    projects,
+    publicationPageSize,
+    publications,
+    query,
+    secondaryFacet,
+    topic,
+  ]);
+  const resultCount = archive.entries.length;
   const hasFilters = Boolean(query || topic || secondaryFacet);
   const filterKey = `${kind}:${query}:${topic}:${secondaryFacet}`;
   const initialBlogPage = blogPageFromSearch(window.location.search);
@@ -213,14 +273,14 @@ export default function CollectionGalleryPage({
         </label>
         <ArchiveSelect
           label="Topics"
-          options={topics}
+          options={archive.topics}
           value={topic}
           onChange={setTopic}
         />
-        {kind !== "projects" ? (
+        {archive.secondaryFilter ? (
           <ArchiveSelect
-            label={kind === "blog" ? "Categories" : "Years"}
-            options={secondaryOptions}
+            label={archive.secondaryFilter.label}
+            options={archive.secondaryFilter.options}
             value={secondaryFacet}
             onChange={setSecondaryFacet}
           />
@@ -239,48 +299,17 @@ export default function CollectionGalleryPage({
       </div>
 
       {resultCount ? (
-        kind === "blog" ? (
-          <PaginatedGrid
-            key={filterKey}
-            ariaLabel="Blog archive pages"
-            className="blog-grid archive-grid"
-            getKey={(post) => post.slug}
-            itemLabel="articles"
-            initialPage={hasFilters ? 1 : initialBlogPage}
-            items={filteredBlogs}
-            pageSize={blogPageSize}
-            renderItem={(post, { page }) => (
-              <BlogCard post={post} returnFrom="archive" returnPage={page} />
-            )}
-          />
-        ) : kind === "projects" ? (
-          <PaginatedGrid
-            key={filterKey}
-            ariaLabel="Project archive pages"
-            className="project-grid archive-grid"
-            getKey={(project) => project.slug}
-            itemLabel="projects"
-            items={filteredProjects}
-            pageSize={projectPageSize}
-            renderItem={(project) => <ProjectCard project={project} />}
-          />
-        ) : (
-          <PaginatedGrid
-            key={filterKey}
-            ariaLabel="Publication archive pages"
-            className="publication-grid archive-grid"
-            getKey={(publication) => publication.slug}
-            itemLabel="publications"
-            items={filteredPublications}
-            pageSize={publicationPageSize}
-            renderItem={(publication) => (
-              <PublicationPoster
-                publication={publication}
-                highlightedAuthor={highlightedAuthor}
-              />
-            )}
-          />
-        )
+        <PaginatedGrid
+          key={filterKey}
+          ariaLabel={archive.ariaLabel}
+          className={archive.className}
+          getKey={(entry) => entry.key}
+          itemLabel={copy.itemLabel}
+          initialPage={kind === "blog" && !hasFilters ? initialBlogPage : 1}
+          items={archive.entries}
+          pageSize={archive.pageSize}
+          renderItem={(entry, { page }) => entry.render(page)}
+        />
       ) : (
         <div className="archive-empty" role="status">
           <h2>No matching work</h2>

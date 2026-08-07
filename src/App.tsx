@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useLayoutEffect } from "react";
 import {
   ArrowDown,
   ArrowUp,
@@ -129,16 +129,29 @@ export default function App() {
   const isHomePage = !isBlogPage && !isCollectionPage;
   const homeBlogPage = blogPageFromSearch(window.location.search);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isHomePage || window.location.hash !== "#blog") {
       return;
     }
 
+    const target = document.getElementById("blog");
+
+    if (!target) {
+      return;
+    }
+
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    target.scrollIntoView({ block: "start" });
     const frame = window.requestAnimationFrame(() => {
-      document.getElementById("blog")?.scrollIntoView({ block: "start" });
+      root.style.scrollBehavior = previousScrollBehavior;
     });
 
-    return () => window.cancelAnimationFrame(frame);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      root.style.scrollBehavior = previousScrollBehavior;
+    };
   }, [homeBlogPage, isHomePage]);
 
   return (
