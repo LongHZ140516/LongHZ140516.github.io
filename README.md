@@ -55,7 +55,7 @@ category: "Research Notes"
 tags: ["3D Vision", "Tools"]
 cover: "./assets/blog/my-cover.webp" # 可选
 coverAlt: "Description of the cover" # 使用封面时建议填写
-featured: true # 可选，首页以横向大卡片展示
+featured: true # 可选，为卡片增加强调色标识
 updated: "2026-08-08" # 可选，文章更新日期
 draft: false # 可选，设为 true 时不会发布
 ---
@@ -70,7 +70,7 @@ Markdown content starts here.
 - 正文和 Markdown 渲染器会拆分到独立资源，打开主页时只加载轻量元数据
 - 每篇文章会在构建时生成 `/blog/<文件名>/index.html`，可在 GitHub Pages 中直接打开或刷新
 - 主页 Blog 模块按 `date` 从新到旧排列；设置 `draft: true` 的文章不会出现在主页、静态路径或站点地图中
-- 设置 `featured: true` 的文章会横跨两列展示；其他文章会自动组成更紧凑的双列卡片
+- 首页在桌面端每行展示三篇文章，平板端两篇，移动端一篇；设置 `featured: true` 只增加强调色，不会改变卡片尺寸
 
 ## GitHub Pages
 
