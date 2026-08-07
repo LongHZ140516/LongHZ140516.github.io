@@ -1,4 +1,6 @@
 import type {
+  BlogArticleModule,
+  BlogPost,
   Interest,
   Profile,
   Project,
@@ -21,6 +23,17 @@ const projectModules = import.meta.glob("./projects/*.md", {
   eager: true,
   import: "frontmatter",
 }) as Record<string, Omit<Project, "slug">>;
+
+const blogMetadataModules = import.meta.glob("./blogs/*.md", {
+  eager: true,
+  import: "frontmatter",
+  query: "?metadata",
+}) as Record<string, Omit<BlogPost, "slug">>;
+
+const blogArticleModules = import.meta.glob("./blogs/*.md") as Record<
+  string,
+  () => Promise<BlogArticleModule>
+>;
 
 const interestModules = import.meta.glob("./interests/*.md", {
   eager: true,
@@ -83,6 +96,28 @@ function loadInterests(): Interest[] {
     .sort((left, right) => left.name.localeCompare(right.name));
 }
 
+function loadBlogs(): BlogPost[] {
+  return loadCollection(blogMetadataModules)
+    .filter((post) => !post.draft)
+    .sort(
+      (left, right) =>
+        new Date(right.date).getTime() - new Date(left.date).getTime(),
+    );
+}
+
+export async function loadBlogArticle(slug: string): Promise<string> {
+  const entry = Object.entries(blogArticleModules).find(
+    ([path]) => slugFromPath(path) === slug,
+  );
+
+  if (!entry) {
+    throw new Error(`Unknown blog article "${slug}".`);
+  }
+
+  const article = await entry[1]();
+  return article.default;
+}
+
 const profileData = Object.values(profileModules)[0];
 
 if (!profileData) {
@@ -96,5 +131,6 @@ export const siteContent: SiteContent = {
       new Date(right.date).getTime() - new Date(left.date).getTime(),
   ),
   projects: loadCollection(projectModules),
+  blogs: loadBlogs(),
   interests: loadInterests(),
 };

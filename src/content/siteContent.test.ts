@@ -2,7 +2,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseFrontmatter } from "./frontmatter";
-import type { Interest, Profile, Publication } from "./types";
+import type { BlogPost, Interest, Profile, Publication } from "./types";
 
 const contentRoot = join(process.cwd(), "src/content");
 
@@ -29,8 +29,7 @@ describe("site content", () => {
   });
 
   it("preserves the latest publication and acceptance metadata", () => {
-    const publications =
-      readMarkdownDirectory<Publication>("publications");
+    const publications = readMarkdownDirectory<Publication>("publications");
 
     expect(publications).toContainEqual(
       expect.objectContaining({
@@ -159,5 +158,33 @@ describe("site content", () => {
         ),
       ).toBe(true);
     }
+  });
+
+  it("keeps blog articles portable and their local figures available", () => {
+    type BlogFrontmatter = Omit<BlogPost, "slug" | "readingMinutes">;
+    const blogDirectory = join(contentRoot, "blogs");
+    const filenames = readdirSync(blogDirectory).filter((file) =>
+      file.endsWith(".md"),
+    );
+
+    expect(filenames.length).toBeGreaterThan(0);
+
+    for (const filename of filenames) {
+      expect(filename).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*\.md$/);
+      const source = readFileSync(join(blogDirectory, filename), "utf8");
+      const article = parseFrontmatter<BlogFrontmatter>(source);
+
+      expect(article.data.title).toBeTruthy();
+      expect(article.data.summary).toBeTruthy();
+      expect(article.data.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(article.data.tags.length).toBeGreaterThan(0);
+      expect(article.body).toMatch(/^\S/);
+    }
+
+    expect(
+      existsSync(
+        join(process.cwd(), "public/assets/blog/content-pipeline.svg"),
+      ),
+    ).toBe(true);
   });
 });

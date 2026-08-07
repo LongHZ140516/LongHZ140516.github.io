@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import {
   ArrowDown,
   ArrowUp,
@@ -18,11 +19,13 @@ import {
   XLogo,
   type Icon,
 } from "@phosphor-icons/react";
+import { BlogCard } from "./components/BlogCard";
 import { InterestGallery } from "./components/InterestGallery";
 import { ProjectCard } from "./components/ProjectCard";
 import { PublicationPoster } from "./components/PublicationPoster";
 import { RecentUpdates } from "./components/RecentUpdates";
 import { SiteHeader } from "./components/SiteHeader";
+import { blogSlugFromPath } from "./content/blogUtils";
 import { assetUrl, initialsForName } from "./content/contentUtils";
 import { siteContent } from "./content/loadContent";
 import type {
@@ -32,7 +35,9 @@ import type {
   SocialLink,
 } from "./content/types";
 
-const { profile, publications, projects, interests } = siteContent;
+const { profile, publications, projects, blogs, interests } = siteContent;
+
+const BlogArticlePage = lazy(() => import("./components/BlogArticlePage"));
 
 const socialIcons = {
   scholar: GraduationCap,
@@ -91,217 +96,267 @@ function SocialIconLink({ social }: { social: SocialLink }) {
 
 export default function App() {
   const primarySocials = profile.socials.filter((social) => social.primary);
+  const blogSlug = blogSlugFromPath(window.location.pathname);
+  const blogPost = blogs.find((post) => post.slug === blogSlug);
+  const isBlogPage = blogSlug !== null;
 
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <SiteHeader name={profile.name} />
+      <SiteHeader
+        name={profile.name}
+        navigationRoot={isBlogPage ? "/" : ""}
+        topHref={isBlogPage ? "#article-top" : "#about"}
+      />
 
       <main id="main">
-        <section className="hero page-shell" id="about">
-          <div className="hero-copy">
-            <div className="hero-intro">
-              <p className="eyebrow">{profile.role}</p>
-              <h1>{profile.name}</h1>
-              <p className="hero-bio">{profile.bio}</p>
-              <div className="hero-controls">
-                <div className="hero-actions">
-                  <a className="button button--primary" href="#publications">
-                    Publications
-                    <ArrowDown
-                      size={17}
-                      weight="regular"
-                      aria-hidden="true"
-                    />
-                  </a>
-                  <a
-                    className="button button--secondary"
-                    href={
-                      profile.socials.find((item) => item.kind === "email")
-                        ?.href
-                    }
-                  >
-                    Email
-                    <EnvelopeSimple
-                      size={17}
-                      weight="regular"
-                      aria-hidden="true"
-                    />
-                  </a>
-                </div>
-                <nav className="hero-socials" aria-label="Profile links">
-                  {primarySocials.map((social) => (
-                    <SocialIconLink key={social.label} social={social} />
-                  ))}
-                </nav>
-              </div>
-            </div>
-
-            <div className="hero-research">
-              <div className="hero-about">
-                <h2>{profile.aboutHeading}</h2>
-                <p>{profile.aboutBody}</p>
-              </div>
-
-              <div className="hero-focus">
-                <h2>Research interests</h2>
-                <div className="focus-grid">
-                  {profile.researchInterests.map((interest) => (
-                    <span className="focus-item" key={interest.label}>
-                      <span className="focus-icon">
-                        <InlineIcon
-                          component={researchIcons[interest.icon]}
+        {isBlogPage ? (
+          <Suspense
+            fallback={
+              <section
+                className="article-route-loading page-shell"
+                aria-label="Loading article page"
+              >
+                <span />
+                <span />
+                <span />
+              </section>
+            }
+          >
+            <BlogArticlePage post={blogPost} slug={blogSlug} />
+          </Suspense>
+        ) : (
+          <>
+            <section className="hero page-shell" id="about">
+              <div className="hero-copy">
+                <div className="hero-intro">
+                  <p className="eyebrow">{profile.role}</p>
+                  <h1>{profile.name}</h1>
+                  <p className="hero-bio">{profile.bio}</p>
+                  <div className="hero-controls">
+                    <div className="hero-actions">
+                      <a
+                        className="button button--primary"
+                        href="#publications"
+                      >
+                        Publications
+                        <ArrowDown
+                          size={17}
+                          weight="regular"
+                          aria-hidden="true"
                         />
-                      </span>
-                      {interest.label}
-                    </span>
-                  ))}
+                      </a>
+                      <a
+                        className="button button--secondary"
+                        href={
+                          profile.socials.find((item) => item.kind === "email")
+                            ?.href
+                        }
+                      >
+                        Email
+                        <EnvelopeSimple
+                          size={17}
+                          weight="regular"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </div>
+                    <nav className="hero-socials" aria-label="Profile links">
+                      {primarySocials.map((social) => (
+                        <SocialIconLink key={social.label} social={social} />
+                      ))}
+                    </nav>
+                  </div>
+                </div>
+
+                <div className="hero-research">
+                  <div className="hero-about">
+                    <h2>{profile.aboutHeading}</h2>
+                    <p>{profile.aboutBody}</p>
+                  </div>
+
+                  <div className="hero-focus">
+                    <h2>Research interests</h2>
+                    <div className="focus-grid">
+                      {profile.researchInterests.map((interest) => (
+                        <span className="focus-item" key={interest.label}>
+                          <span className="focus-icon">
+                            <InlineIcon
+                              component={researchIcons[interest.icon]}
+                            />
+                          </span>
+                          {interest.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="profile-notes" aria-label="Personal notes">
+                    {profile.profileNotes.map((note) => (
+                      <p className="profile-note" key={note.text}>
+                        <span className="profile-note__icon">
+                          <InlineIcon
+                            component={profileNoteIcons[note.icon]}
+                            size={15}
+                          />
+                        </span>
+                        <span>{note.text}</span>
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="profile-notes" aria-label="Personal notes">
-                {profile.profileNotes.map((note) => (
-                  <p className="profile-note" key={note.text}>
-                    <span className="profile-note__icon">
-                      <InlineIcon
-                        component={profileNoteIcons[note.icon]}
-                        size={15}
-                      />
+              <aside
+                className="hero-aside"
+                aria-label="Profile and affiliations"
+              >
+                <figure className="hero-portrait">
+                  <div className="portrait-frame">
+                    <img
+                      src={assetUrl(profile.avatar)}
+                      alt={profile.avatarAlt}
+                      width="320"
+                      height="360"
+                      fetchPriority="high"
+                    />
+                    <span className="portrait-shape portrait-shape--circle" />
+                    <span className="portrait-shape portrait-shape--square" />
+                  </div>
+                  <figcaption>
+                    <span>{profile.alias}</span>
+                    <span className="location">
+                      <MapPin size={15} weight="regular" aria-hidden="true" />
+                      {profile.location}
                     </span>
-                    <span>{note.text}</span>
-                  </p>
+                  </figcaption>
+                </figure>
+
+                <div className="hero-affiliations">
+                  <h2>Education &amp; experience</h2>
+                  {profile.affiliations.map((item) => (
+                    <article
+                      key={`${item.organization}-${item.role}-${item.period}`}
+                    >
+                      <div className="affiliation-logo" aria-hidden="true">
+                        {item.logo ? (
+                          <img src={assetUrl(item.logo)} alt="" />
+                        ) : item.kind === "education" ? (
+                          <Student size={22} weight="regular" />
+                        ) : (
+                          <Briefcase size={22} weight="regular" />
+                        )}
+                      </div>
+                      <div>
+                        <div className="affiliation-heading">
+                          <h3>{item.organization}</h3>
+                          <time>{item.period}</time>
+                        </div>
+                        <p>{item.role}</p>
+                        {item.mentors?.length ? (
+                          <p className="affiliation-mentors">
+                            <span className="mentor-label">
+                              {item.mentorLabel ?? "Mentors"}:
+                            </span>{" "}
+                            {item.mentors.map((mentor, index) => (
+                              <span
+                                className="affiliation-mentor-item"
+                                key={mentor.name}
+                              >
+                                {index > 0 ? ", " : ""}
+                                {mentor.href ? (
+                                  <a
+                                    href={mentor.href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    {mentor.name}
+                                  </a>
+                                ) : (
+                                  mentor.name
+                                )}
+                              </span>
+                            ))}
+                          </p>
+                        ) : null}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </aside>
+            </section>
+
+            <RecentUpdates items={profile.news} />
+
+            <section
+              className="publication-section page-shell"
+              id="publications"
+            >
+              <div className="section-heading">
+                <h2>Publications</h2>
+                <p>
+                  Peer-reviewed and preprint work across 3D vision, image
+                  generation, visual reasoning, and remote sensing.
+                </p>
+              </div>
+              <div className="publication-grid">
+                {publications.map((publication) => (
+                  <PublicationPoster
+                    key={publication.slug}
+                    publication={publication}
+                    highlightedAuthor={profile.name}
+                  />
                 ))}
               </div>
-            </div>
-          </div>
+            </section>
 
-          <aside className="hero-aside" aria-label="Profile and affiliations">
-            <figure className="hero-portrait">
-              <div className="portrait-frame">
-                <img
-                  src={assetUrl(profile.avatar)}
-                  alt={profile.avatarAlt}
-                  width="320"
-                  height="360"
-                  fetchPriority="high"
-                />
-                <span className="portrait-shape portrait-shape--circle" />
-                <span className="portrait-shape portrait-shape--square" />
+            <section className="project-section page-shell" id="projects">
+              <div className="section-heading">
+                <h2>Projects</h2>
+                <p>
+                  Open-source tools and experiments that turn research workflows
+                  into reusable systems.
+                </p>
               </div>
-              <figcaption>
-                <span>{profile.alias}</span>
-                <span className="location">
-                  <MapPin size={15} weight="regular" aria-hidden="true" />
-                  {profile.location}
-                </span>
-              </figcaption>
-            </figure>
+              <div className="project-grid">
+                {projects.map((project) => (
+                  <ProjectCard key={project.slug} project={project} />
+                ))}
+              </div>
+            </section>
 
-            <div className="hero-affiliations">
-              <h2>Education &amp; experience</h2>
-              {profile.affiliations.map((item) => (
-                <article
-                  key={`${item.organization}-${item.role}-${item.period}`}
-                >
-                  <div className="affiliation-logo" aria-hidden="true">
-                    {item.logo ? (
-                      <img src={assetUrl(item.logo)} alt="" />
-                    ) : item.kind === "education" ? (
-                      <Student size={22} weight="regular" />
-                    ) : (
-                      <Briefcase size={22} weight="regular" />
-                    )}
-                  </div>
-                  <div>
-                    <div className="affiliation-heading">
-                      <h3>{item.organization}</h3>
-                      <time>{item.period}</time>
-                    </div>
-                    <p>{item.role}</p>
-                    {item.mentors?.length ? (
-                      <p className="affiliation-mentors">
-                        <span className="mentor-label">
-                          {item.mentorLabel ?? "Mentors"}:
-                        </span>{" "}
-                        {item.mentors.map((mentor, index) => (
-                          <span
-                            className="affiliation-mentor-item"
-                            key={mentor.name}
-                          >
-                            {index > 0 ? ", " : ""}
-                            {mentor.href ? (
-                              <a
-                                href={mentor.href}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                {mentor.name}
-                              </a>
-                            ) : (
-                              mentor.name
-                            )}
-                          </span>
-                        ))}
-                      </p>
-                    ) : null}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </aside>
-        </section>
+            <section className="blog-section page-shell" id="blog">
+              <div className="section-heading">
+                <h2>Blog</h2>
+                <p>
+                  Notes on research, building, and the ideas that become clearer
+                  through writing.
+                </p>
+              </div>
+              <div className="blog-grid">
+                {blogs.map((post) => (
+                  <BlogCard key={post.slug} post={post} />
+                ))}
+              </div>
+            </section>
 
-        <RecentUpdates items={profile.news} />
-
-        <section className="publication-section page-shell" id="publications">
-          <div className="section-heading">
-            <h2>Publications</h2>
-            <p>
-              Peer-reviewed and preprint work across 3D vision, image
-              generation, visual reasoning, and remote sensing.
-            </p>
-          </div>
-          <div className="publication-grid">
-            {publications.map((publication) => (
-              <PublicationPoster
-                key={publication.slug}
-                publication={publication}
-                highlightedAuthor={profile.name}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="project-section page-shell" id="projects">
-          <div className="section-heading">
-            <h2>Projects</h2>
-            <p>
-              Open-source tools and experiments that turn research workflows
-              into reusable systems.
-            </p>
-          </div>
-          <div className="project-grid">
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
-        </section>
-
-        <section className="interest-section page-shell" id="interests">
-          <div className="section-heading">
-            <h2>Interests</h2>
-            <p>
-              A visual shelf of the animation, music, and games I return to.
-            </p>
-          </div>
-          <div className="interest-gallery">
-            {interests.map((interest) => (
-              <InterestGallery key={interest.slug} interest={interest} />
-            ))}
-          </div>
-        </section>
+            <section className="interest-section page-shell" id="interests">
+              <div className="section-heading">
+                <h2>Interests</h2>
+                <p>
+                  A visual shelf of the animation, music, and games I return to.
+                </p>
+              </div>
+              <div className="interest-gallery">
+                {interests.map((interest) => (
+                  <InterestGallery key={interest.slug} interest={interest} />
+                ))}
+              </div>
+            </section>
+          </>
+        )}
       </main>
 
       <footer className="site-footer">
@@ -321,7 +376,7 @@ export default function App() {
           </nav>
           <a
             className="social-icon-link footer-top-link"
-            href="#about"
+            href={isBlogPage ? "#article-top" : "#about"}
             aria-label="Back to top"
           >
             <ArrowUp size={17} weight="regular" aria-hidden="true" />

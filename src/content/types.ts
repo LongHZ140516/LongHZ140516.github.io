@@ -111,9 +111,30 @@ export interface Interest {
   items: InterestItem[];
 }
 
+export interface BlogPost {
+  slug: string;
+  title: string;
+  summary: string;
+  date: string;
+  updated?: string;
+  category: string;
+  tags: string[];
+  cover?: string;
+  coverAlt?: string;
+  featured?: boolean;
+  draft?: boolean;
+  readingMinutes: number;
+}
+
+export interface BlogArticleModule {
+  default: string;
+  frontmatter: Omit<BlogPost, "slug">;
+}
+
 export interface SiteContent {
   profile: Profile;
   publications: Publication[];
   projects: Project[];
+  blogs: BlogPost[];
   interests: Interest[];
 }

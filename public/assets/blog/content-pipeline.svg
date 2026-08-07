@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 820" role="img" aria-labelledby="title description">
+  <title id="title">Blog content loading pipeline</title>
+  <desc id="description">Markdown metadata loads on the home page while the article body and renderer load only on the article page.</desc>
+  <rect width="1440" height="820" fill="#f0eee6"/>
+  <rect x="48" y="48" width="1344" height="724" fill="#faf9f5" stroke="#141413" stroke-width="2"/>
+  <path d="M96 160h1248M96 660h1248" stroke="#aaa49a" stroke-width="2"/>
+  <circle cx="116" cy="106" r="24" fill="#c6613f" stroke="#141413" stroke-width="2"/>
+  <rect x="150" y="82" width="126" height="48" fill="#e3dacc" stroke="#141413" stroke-width="2"/>
+  <text x="213" y="112" text-anchor="middle" fill="#141413" font-family="Arial, sans-serif" font-size="18">BUILD</text>
+
+  <g font-family="Arial, sans-serif" fill="#141413">
+    <rect x="96" y="238" width="304" height="282" fill="#faf9f5" stroke="#141413" stroke-width="2"/>
+    <text x="128" y="286" font-size="26" font-weight="700">Markdown</text>
+    <text x="128" y="324" font-size="17" fill="#6e6b64">frontmatter + body</text>
+    <path d="M128 378h190M128 410h224M128 442h156" stroke="#934028" stroke-width="10"/>
+    <rect x="128" y="474" width="88" height="16" fill="#c6613f"/>
+
+    <path d="M420 380h124" stroke="#141413" stroke-width="2"/>
+    <path d="m528 366 18 14-18 14" fill="none" stroke="#141413" stroke-width="2"/>
+
+    <rect x="566" y="198" width="330" height="178" fill="#e3dacc" stroke="#141413" stroke-width="2"/>
+    <text x="598" y="246" font-size="26" font-weight="700">Home metadata</text>
+    <text x="598" y="282" font-size="17" fill="#6e6b64">title, date, tags, cover</text>
+    <text x="598" y="334" font-size="18" fill="#934028">loaded immediately</text>
+
+    <rect x="566" y="412" width="330" height="178" fill="#faf9f5" stroke="#141413" stroke-width="2"/>
+    <text x="598" y="460" font-size="26" font-weight="700">Article body</text>
+    <text x="598" y="496" font-size="17" fill="#6e6b64">Markdown + renderer</text>
+    <text x="598" y="548" font-size="18" fill="#934028">loaded on entry</text>
+
+    <path d="M916 287h112M916 501h112" stroke="#141413" stroke-width="2"/>
+    <path d="m1012 273 18 14-18 14M1012 487l18 14-18 14" fill="none" stroke="#141413" stroke-width="2"/>
+
+    <rect x="1050" y="238" width="294" height="282" fill="#934028" stroke="#141413" stroke-width="2"/>
+    <text x="1082" y="286" font-size="26" font-weight="700" fill="#faf9f5">GitHub Pages</text>
+    <text x="1082" y="324" font-size="17" fill="#e3dacc">static article route</text>
+    <rect x="1082" y="376" width="230" height="104" fill="#faf9f5" stroke="#141413" stroke-width="2"/>
+    <text x="1197" y="420" text-anchor="middle" font-size="18">/blog/slug/</text>
+    <text x="1197" y="452" text-anchor="middle" font-size="15" fill="#6e6b64">index.html</text>
+
+    <text x="96" y="716" font-family="monospace" font-size="17" fill="#6e6b64">LIGHT INDEX FIRST</text>
+    <text x="1344" y="716" text-anchor="end" font-family="monospace" font-size="17" fill="#6e6b64">FULL ARTICLE LATER</text>
+  </g>
+</svg>

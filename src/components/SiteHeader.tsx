@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  ArrowLineUp,
-  List,
-  Moon,
-  Sun,
-  X,
-} from "@phosphor-icons/react";
+import { ArrowLineUp, List, Moon, Sun, X } from "@phosphor-icons/react";
 import { initialsForName } from "../content/contentUtils";
 import type { Theme } from "../content/types";
 
@@ -13,6 +7,7 @@ const navigation = [
   { label: "About", href: "#about" },
   { label: "Publications", href: "#publications" },
   { label: "Projects", href: "#projects" },
+  { label: "Blog", href: "#blog" },
   { label: "Interests", href: "#interests" },
 ];
 
@@ -35,7 +30,17 @@ function getInitialTheme(): Theme {
   return "light";
 }
 
-export function SiteHeader({ name }: { name: string }) {
+interface SiteHeaderProps {
+  name: string;
+  navigationRoot?: string;
+  topHref?: string;
+}
+
+export function SiteHeader({
+  name,
+  navigationRoot = "",
+  topHref = "#about",
+}: SiteHeaderProps) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -53,7 +58,11 @@ export function SiteHeader({ name }: { name: string }) {
 
   return (
     <header className="site-header">
-      <a className="brand-mark" href="#about" aria-label={`${name}, home`}>
+      <a
+        className="brand-mark"
+        href={navigationRoot || "#about"}
+        aria-label={`${name}, home`}
+      >
         <span className="brand-monogram" aria-hidden="true">
           {initialsForName(name)}
         </span>
@@ -62,7 +71,7 @@ export function SiteHeader({ name }: { name: string }) {
 
       <nav className="desktop-nav" aria-label="Primary navigation">
         {navigation.map((item) => (
-          <a key={item.href} href={item.href}>
+          <a key={item.href} href={`${navigationRoot}${item.href}`}>
             {item.label}
           </a>
         ))}
@@ -71,7 +80,7 @@ export function SiteHeader({ name }: { name: string }) {
       <div className="header-actions">
         <a
           className="icon-button"
-          href="#about"
+          href={topHref}
           aria-label="Back to top"
           title="Back to top"
         >
@@ -113,7 +122,7 @@ export function SiteHeader({ name }: { name: string }) {
         {navigation.map((item) => (
           <a
             key={item.href}
-            href={item.href}
+            href={`${navigationRoot}${item.href}`}
             onClick={() => setMenuOpen(false)}
           >
             {item.label}
