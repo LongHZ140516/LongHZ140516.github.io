@@ -3,8 +3,19 @@ import { blogHref, formatBlogDate } from "../content/blogUtils";
 import type { BlogPost } from "../content/types";
 import { BlogCover } from "./BlogCover";
 
-export function BlogCard({ post }: { post: BlogPost }) {
-  const href = blogHref(post.slug);
+export function BlogCard({
+  post,
+  returnFrom = "home",
+  returnPage,
+}: {
+  post: BlogPost;
+  returnFrom?: "archive" | "home";
+  returnPage?: number;
+}) {
+  const href = blogHref(
+    post.slug,
+    returnPage ? { from: returnFrom, page: returnPage } : undefined,
+  );
 
   return (
     <article

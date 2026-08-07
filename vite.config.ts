@@ -24,6 +24,27 @@ interface BlogBuildMetadata {
   draft?: boolean;
 }
 
+const collectionPages = [
+  {
+    path: "blog",
+    title: "Blog | Zilong Huang",
+    description:
+      "Notes on research, building, and ideas by Zilong Huang.",
+  },
+  {
+    path: "publications",
+    title: "Publications | Zilong Huang",
+    description:
+      "Research publications by Zilong Huang across 3D vision, generative models, visual reasoning, and remote sensing.",
+  },
+  {
+    path: "projects",
+    title: "Projects | Zilong Huang",
+    description:
+      "Open-source tools and research experiments built by Zilong Huang.",
+  },
+] as const;
+
 function escapeHtml(value: string): string {
   return value
     .replaceAll("&", "&amp;")
@@ -46,6 +67,35 @@ function absoluteBlogUrl(slug: string): string {
 
 function blogOutputDirectory(slug: string): string {
   return join(outputDirectory, ...blogHref(slug).split("/").filter(Boolean));
+}
+
+function collectionHref(path: string): string {
+  return `/${path}/`;
+}
+
+function makeCollectionHtml(
+  sourceHtml: string,
+  page: (typeof collectionPages)[number],
+): string {
+  const canonical = `${siteOrigin}${collectionHref(page.path)}`;
+  let html = sourceHtml
+    .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(page.title)}</title>`)
+    .replace(
+      /<link rel="canonical" href="[^"]*" \/>/,
+      `<link rel="canonical" href="${canonical}" />`,
+    )
+    .replace(/\s*<link\s+rel="preload"[\s\S]*?fetchpriority="high"\s*\/>/, "");
+
+  html = replaceMetaContent(html, "name", "description", page.description);
+  html = replaceMetaContent(html, "property", "og:title", page.title);
+  html = replaceMetaContent(
+    html,
+    "property",
+    "og:description",
+    page.description,
+  );
+
+  return html;
 }
 
 function blogFiles(): string[] {
@@ -128,6 +178,24 @@ function staticBlogPages() {
       const indexPath = join(outputDirectory, "index.html");
       const sourceHtml = readFileSync(indexPath, "utf8");
       const sitemapEntries: string[] = [];
+
+      for (const page of collectionPages) {
+        const pageDirectory = join(outputDirectory, page.path);
+        mkdirSync(pageDirectory, { recursive: true });
+        writeFileSync(
+          join(pageDirectory, "index.html"),
+          makeCollectionHtml(sourceHtml, page),
+        );
+        sitemapEntries.push(
+          [
+            "  <url>",
+            `    <loc>${escapeXml(`${siteOrigin}${collectionHref(page.path)}`)}</loc>`,
+            "    <changefreq>monthly</changefreq>",
+            "    <priority>0.8</priority>",
+            "  </url>",
+          ].join("\n"),
+        );
+      }
 
       for (const filename of blogFiles()) {
         const slug = blogSlug(filename);

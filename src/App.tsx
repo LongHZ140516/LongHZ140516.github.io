@@ -1,7 +1,8 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import {
   ArrowDown,
   ArrowUp,
+  ArrowUpRight,
   Briefcase,
   Code,
   Cube,
@@ -27,7 +28,11 @@ import { PublicationPoster } from "./components/PublicationPoster";
 import { RecentUpdates } from "./components/RecentUpdates";
 import { SiteHeader } from "./components/SiteHeader";
 import { useResponsivePageSize } from "./components/useResponsivePageSize";
-import { blogSlugFromPath } from "./content/blogUtils";
+import {
+  blogSlugFromPath,
+  blogPageFromSearch,
+} from "./content/blogUtils";
+import { collectionRouteFromPath } from "./content/collectionUtils";
 import { assetUrl, initialsForName } from "./content/contentUtils";
 import { siteContent } from "./content/loadContent";
 import type {
@@ -40,6 +45,9 @@ import type {
 const { profile, publications, projects, blogs, interests } = siteContent;
 
 const BlogArticlePage = lazy(() => import("./components/BlogArticlePage"));
+const CollectionGalleryPage = lazy(
+  () => import("./components/CollectionGalleryPage"),
+);
 
 const socialIcons = {
   scholar: GraduationCap,
@@ -103,14 +111,35 @@ export default function App() {
     "--publication-rows",
     12,
   );
+  const projectPageSize = useResponsivePageSize(
+    "--project-columns",
+    "--project-rows",
+    4,
+  );
   const blogPageSize = useResponsivePageSize(
     "--blog-columns",
     "--blog-rows",
-    9,
+    3,
   );
   const blogSlug = blogSlugFromPath(window.location.pathname);
+  const collectionRoute = collectionRouteFromPath(window.location.pathname);
   const blogPost = blogs.find((post) => post.slug === blogSlug);
   const isBlogPage = blogSlug !== null;
+  const isCollectionPage = collectionRoute !== null;
+  const isHomePage = !isBlogPage && !isCollectionPage;
+  const homeBlogPage = blogPageFromSearch(window.location.search);
+
+  useEffect(() => {
+    if (!isHomePage || window.location.hash !== "#blog") {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById("blog")?.scrollIntoView({ block: "start" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [homeBlogPage, isHomePage]);
 
   return (
     <>
@@ -119,8 +148,14 @@ export default function App() {
       </a>
       <SiteHeader
         name={profile.name}
-        navigationRoot={isBlogPage ? "/" : ""}
-        topHref={isBlogPage ? "#article-top" : "#about"}
+        navigationRoot={isHomePage ? "" : "/"}
+        topHref={
+          isBlogPage
+            ? "#article-top"
+            : isCollectionPage
+              ? "#archive-top"
+              : "#about"
+        }
       />
 
       <main id="main">
@@ -137,7 +172,33 @@ export default function App() {
               </section>
             }
           >
-            <BlogArticlePage post={blogPost} slug={blogSlug} />
+            <BlogArticlePage
+              post={blogPost}
+              posts={blogs}
+              returnSearch={window.location.search}
+              slug={blogSlug}
+            />
+          </Suspense>
+        ) : collectionRoute ? (
+          <Suspense
+            fallback={
+              <section
+                className="article-route-loading page-shell"
+                aria-label="Loading archive page"
+              >
+                <span />
+                <span />
+                <span />
+              </section>
+            }
+          >
+            <CollectionGalleryPage
+              blogs={blogs}
+              highlightedAuthor={profile.name}
+              kind={collectionRoute}
+              projects={projects}
+              publications={publications}
+            />
           </Suspense>
         ) : (
           <>
@@ -306,12 +367,18 @@ export default function App() {
               className="publication-section page-shell"
               id="publications"
             >
-              <div className="section-heading">
-                <h2>Publications</h2>
-                <p>
-                  Peer-reviewed and preprint work across 3D vision, image
-                  generation, visual reasoning, and remote sensing.
-                </p>
+              <div className="section-heading section-heading--with-action">
+                <div>
+                  <h2>Publications</h2>
+                  <p>
+                    Peer-reviewed and preprint work across 3D vision, image
+                    generation, visual reasoning, and remote sensing.
+                  </p>
+                </div>
+                <a className="section-archive-link" href="/publications/">
+                  View archive
+                  <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
+                </a>
               </div>
               <PaginatedGrid
                 ariaLabel="Publication pages"
@@ -330,36 +397,55 @@ export default function App() {
             </section>
 
             <section className="project-section page-shell" id="projects">
-              <div className="section-heading">
-                <h2>Projects</h2>
-                <p>
-                  Open-source tools and experiments that turn research workflows
-                  into reusable systems.
-                </p>
+              <div className="section-heading section-heading--with-action">
+                <div>
+                  <h2>Projects</h2>
+                  <p>
+                    Open-source tools and experiments that turn research workflows
+                    into reusable systems.
+                  </p>
+                </div>
+                <a className="section-archive-link" href="/projects/">
+                  View archive
+                  <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
+                </a>
               </div>
-              <div className="project-grid">
-                {projects.map((project) => (
-                  <ProjectCard key={project.slug} project={project} />
-                ))}
-              </div>
+              <PaginatedGrid
+                ariaLabel="Project pages"
+                className="project-grid"
+                getKey={(project) => project.slug}
+                itemLabel="projects"
+                items={projects}
+                pageSize={projectPageSize}
+                renderItem={(project) => <ProjectCard project={project} />}
+              />
             </section>
 
             <section className="blog-section page-shell" id="blog">
-              <div className="section-heading">
-                <h2>Blog</h2>
-                <p>
-                  Notes on research, building, and the ideas that become clearer
-                  through writing.
-                </p>
+              <div className="section-heading section-heading--with-action">
+                <div>
+                  <h2>Blog</h2>
+                  <p>
+                    Notes on research, building, and the ideas that become clearer
+                    through writing.
+                  </p>
+                </div>
+                <a className="section-archive-link" href="/blog/">
+                  View archive
+                  <ArrowUpRight size={16} weight="regular" aria-hidden="true" />
+                </a>
               </div>
               <PaginatedGrid
                 ariaLabel="Blog pages"
                 className="blog-grid"
                 getKey={(post) => post.slug}
                 itemLabel="articles"
+                initialPage={homeBlogPage}
                 items={blogs}
                 pageSize={blogPageSize}
-                renderItem={(post) => <BlogCard post={post} />}
+                renderItem={(post, { page }) => (
+                  <BlogCard post={post} returnPage={page} />
+                )}
               />
             </section>
 
@@ -397,7 +483,13 @@ export default function App() {
           </nav>
           <a
             className="social-icon-link footer-top-link"
-            href={isBlogPage ? "#article-top" : "#about"}
+            href={
+              isBlogPage
+                ? "#article-top"
+                : isCollectionPage
+                  ? "#archive-top"
+                  : "#about"
+            }
             aria-label="Back to top"
           >
             <ArrowUp size={17} weight="regular" aria-hidden="true" />

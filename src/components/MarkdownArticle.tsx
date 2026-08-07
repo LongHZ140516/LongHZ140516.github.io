@@ -177,14 +177,14 @@ function ArticleToc({ items }: { items: TableOfContentsItem[] }) {
     <>
       <aside
         className="article-toc article-toc--desktop"
-        aria-label="On this page"
+        aria-label="Article contents"
       >
-        <p>On this page</p>
+        <p>Contents</p>
         {links}
       </aside>
       <details className="article-toc article-toc--mobile">
         <summary>
-          <span>On this page</span>
+          <span>Contents</span>
           <CaretDown
             className="article-toc__caret"
             size={15}

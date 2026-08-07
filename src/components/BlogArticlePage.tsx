@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react";
-import { formatBlogDate } from "../content/blogUtils";
+import {
+  blogReturnHref,
+  formatBlogDate,
+} from "../content/blogUtils";
 import { loadBlogArticle } from "../content/loadContent";
 import type { BlogPost } from "../content/types";
+import { BlogArticleNavigation } from "./BlogArticleNavigation";
 import { BlogCover } from "./BlogCover";
 import { MarkdownArticle } from "./MarkdownArticle";
 
 interface BlogArticlePageProps {
   post?: BlogPost;
+  posts: readonly BlogPost[];
+  returnSearch?: string;
   slug: string;
 }
 
@@ -27,7 +33,12 @@ function ArticleLoadError({ onRetry }: { onRetry: () => void }) {
   );
 }
 
-export default function BlogArticlePage({ post, slug }: BlogArticlePageProps) {
+export default function BlogArticlePage({
+  post,
+  posts,
+  returnSearch = "",
+  slug,
+}: BlogArticlePageProps) {
   const [source, setSource] = useState<string | null>(null);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -75,19 +86,22 @@ export default function BlogArticlePage({ post, slug }: BlogArticlePageProps) {
       <section className="article-state article-state--not-found page-shell">
         <p className="eyebrow">Not found</p>
         <h1>This page has no article.</h1>
-        <a className="button button--primary" href="/#blog">
-          Back to Blog
+        <a className="button button--primary" href="/blog/">
+          Open Blog archive
         </a>
       </section>
     );
   }
 
+  const returnHref = blogReturnHref(returnSearch);
+  const returnsHome = new URLSearchParams(returnSearch).get("from") === "home";
+
   return (
     <article className="blog-article" id="article-top">
       <header className="article-hero page-shell">
-        <a className="article-back-link" href="/#blog">
+        <a className="article-back-link" href={returnHref}>
           <ArrowLeft size={16} weight="regular" aria-hidden="true" />
-          Blog
+          {returnsHome ? "Back to Blog" : "Blog archive"}
         </a>
         <div className="article-hero__meta">
           <span>{post.category}</span>
@@ -119,10 +133,16 @@ export default function BlogArticlePage({ post, slug }: BlogArticlePageProps) {
         )}
       </div>
 
+      <BlogArticleNavigation
+        currentSlug={post.slug}
+        posts={posts}
+        returnSearch={returnSearch}
+      />
+
       <div className="article-end page-shell">
         <p>End of article</p>
-        <a href="/#blog">
-          All writing
+        <a href={returnHref}>
+          {returnsHome ? "Back to homepage" : "All writing"}
           <ArrowUpRight size={15} weight="regular" aria-hidden="true" />
         </a>
       </div>

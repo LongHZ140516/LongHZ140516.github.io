@@ -69,13 +69,16 @@ Markdown content starts here.
 - 阅读时间会在构建时根据中英文内容自动估算，不需要手动维护
 - 正文和 Markdown 渲染器会拆分到独立资源，打开主页时只加载轻量元数据
 - 每篇文章会在构建时生成 `/blog/<文件名>/index.html`，可在 GitHub Pages 中直接打开或刷新
+- `/blog/`、`/publications/` 与 `/projects/` 会生成独立静态档案页，支持关键词搜索与按内容自动生成的筛选项
 - 主页 Blog 模块按 `date` 从新到旧排列；设置 `draft: true` 的文章不会出现在主页、静态路径或站点地图中
-- Blog 在桌面端按 3 列 × 3 行分页，平板端每页 6 篇，移动端每页 4 篇；设置 `featured: true` 只增加强调色，不会改变卡片尺寸
+- 主页 Blog 在桌面端单排展示最近 3 篇，并按 3、2、1 篇自适应分页；设置 `featured: true` 只增加强调色，不会改变卡片尺寸
+- 主页 Project 同样保持单排分页；独立 Blog、Publication 与 Project 档案页使用更适合完整浏览的多行响应式分页
 - Publication 在桌面端按 4 列 × 3 行分页，并随屏幕宽度自动调整为每页 9、6 或 4 篇
-- 分页会继续按现有 Markdown 日期顺序读取内容，新增或删除文章与论文时不需要修改组件
+- 文章页提供较新与较旧文章导航；从主页或 Blog 档案的某一页进入时，返回链接会恢复原页码
+- 分页会继续按现有 Markdown 日期顺序读取内容，新增或删除文章、论文与项目时不需要修改组件
 
 ## GitHub Pages
 
 仓库包含 `.github/workflows/deploy.yml`。在 GitHub 仓库设置中将 Pages 的 Source 设为 `GitHub Actions`，之后推送到 `main` 即可触发构建与发布。
 
-当前仓库是用户主页仓库 `LongHZ140516.github.io`，因此 Vite 的 `base` 设置为 `/`，发布地址为 `https://longhz140516.github.io/`。博客文章由构建过程生成真实静态目录，不依赖服务端路由重写；刷新文章地址和主页锚点都可直接工作。
+当前仓库是用户主页仓库 `LongHZ140516.github.io`，因此 Vite 的 `base` 设置为 `/`，发布地址为 `https://longhz140516.github.io/`。博客文章和三个内容档案页都由构建过程生成真实静态目录，不依赖服务端路由重写；刷新文章地址、档案地址和主页锚点都可直接工作。

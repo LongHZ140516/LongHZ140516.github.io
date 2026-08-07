@@ -41,8 +41,28 @@ export function createHeadingSlugger() {
 
 const BLOG_ROUTE_PREFIX = "/blog/";
 
-export function blogHref(slug: string): string {
-  return `${BLOG_ROUTE_PREFIX}${encodeURIComponent(slug)}/`;
+export interface BlogLinkContext {
+  from: "archive" | "home";
+  page: number;
+}
+
+function safePage(value: number): number {
+  return Number.isFinite(value) && value > 0 ? Math.floor(value) : 1;
+}
+
+export function blogHref(slug: string, context?: BlogLinkContext): string {
+  const href = `${BLOG_ROUTE_PREFIX}${encodeURIComponent(slug)}/`;
+
+  if (!context) {
+    return href;
+  }
+
+  const search = new URLSearchParams({
+    from: context.from,
+    blogPage: String(safePage(context.page)),
+  });
+
+  return `${href}?${search.toString()}`;
 }
 
 export function blogSlugFromPath(pathname: string): string | null {
@@ -64,6 +84,41 @@ export function blogSlugFromPath(pathname: string): string | null {
   } catch {
     return null;
   }
+}
+
+export function blogPageFromSearch(search: string): number {
+  const value = Number.parseInt(
+    new URLSearchParams(search).get("blogPage") ?? "1",
+    10,
+  );
+
+  return safePage(value);
+}
+
+export function blogReturnHref(search: string): string {
+  const params = new URLSearchParams(search);
+  const page = blogPageFromSearch(search);
+
+  if (params.get("from") === "home") {
+    return `/?blogPage=${page}#blog`;
+  }
+
+  return params.get("from") === "archive"
+    ? `/blog/?blogPage=${page}`
+    : "/blog/";
+}
+
+export function blogSiblingHref(slug: string, search: string): string {
+  const params = new URLSearchParams(search);
+
+  const from = params.get("from");
+
+  return from === "home" || from === "archive"
+    ? blogHref(slug, {
+        from,
+        page: blogPageFromSearch(search),
+      })
+    : blogHref(slug);
 }
 
 export function formatBlogDate(date: string): string {

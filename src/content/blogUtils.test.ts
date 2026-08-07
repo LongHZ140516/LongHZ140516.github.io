@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
   blogHref,
+  blogPageFromSearch,
+  blogReturnHref,
+  blogSiblingHref,
   blogSlugFromPath,
   createHeadingSlugger,
   estimateReadingMinutes,
@@ -46,9 +49,33 @@ First *idea*
 
   it("keeps blog routes compatible with static GitHub Pages paths", () => {
     expect(blogHref("small-notes")).toBe("/blog/small-notes/");
+    expect(blogHref("small-notes", { from: "home", page: 2 })).toBe(
+      "/blog/small-notes/?from=home&blogPage=2",
+    );
+    expect(blogHref("small-notes", { from: "archive", page: 4 })).toBe(
+      "/blog/small-notes/?from=archive&blogPage=4",
+    );
     expect(blogSlugFromPath("/blog/small-notes/")).toBe("small-notes");
     expect(blogSlugFromPath("/blog/small-notes")).toBe("small-notes");
     expect(blogSlugFromPath("/projects/small-notes/")).toBeNull();
+  });
+
+  it("keeps and restores a safe home Blog return context", () => {
+    const search = "?from=home&blogPage=3";
+
+    expect(blogPageFromSearch(search)).toBe(3);
+    expect(blogReturnHref(search)).toBe("/?blogPage=3#blog");
+    expect(blogSiblingHref("another-note", search)).toBe(
+      "/blog/another-note/?from=home&blogPage=3",
+    );
+    expect(blogReturnHref("?from=external&blogPage=99")).toBe("/blog/");
+    expect(blogReturnHref("?from=archive&blogPage=4")).toBe(
+      "/blog/?blogPage=4",
+    );
+    expect(blogSiblingHref("another-note", "?from=archive&blogPage=4")).toBe(
+      "/blog/another-note/?from=archive&blogPage=4",
+    );
+    expect(blogPageFromSearch("?blogPage=-4")).toBe(1);
   });
 
   it("estimates reading time for English and CJK writing", () => {

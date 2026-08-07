@@ -11,22 +11,26 @@ interface PaginatedGridProps<T> {
   ariaLabel: string;
   className: string;
   getKey: (item: T) => string;
+  initialPage?: number;
   itemLabel: string;
   items: readonly T[];
   pageSize: number;
-  renderItem: (item: T) => ReactNode;
+  renderItem: (item: T, context: { page: number }) => ReactNode;
 }
 
 export function PaginatedGrid<T>({
   ariaLabel,
   className,
   getKey,
+  initialPage = 1,
   itemLabel,
   items,
   pageSize,
   renderItem,
 }: PaginatedGridProps<T>) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(() =>
+    Math.max(1, Math.floor(initialPage)),
+  );
   const previousPageSize = useRef(pageSize);
   const gridRef = useRef<HTMLDivElement>(null);
   const totalPages = Math.max(1, Math.ceil(items.length / pageSize));
@@ -79,7 +83,7 @@ export function PaginatedGrid<T>({
             key={getKey(item)}
             role="listitem"
           >
-            {renderItem(item)}
+            {renderItem(item, { page: safePage })}
           </div>
         ))}
       </div>
