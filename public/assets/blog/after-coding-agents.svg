@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
+  <title id="title">Coding agents unfolding into a 3D world</title>
+  <desc id="description">A geometric editorial diagram of code modules passing through an agent node and expanding into a wireframe three-dimensional scene.</desc>
+
+  <rect width="1440" height="810" fill="#eeeae1"/>
+  <rect x="36" y="36" width="1368" height="738" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+  <rect x="52" y="52" width="18" height="706" fill="#c6613f"/>
+
+  <circle cx="1098" cy="390" r="246" fill="#c6613f"/>
+  <circle cx="1098" cy="390" r="210" fill="none" stroke="#934028" stroke-width="2"/>
+
+  <g stroke="#171614" stroke-width="2" stroke-linejoin="miter">
+    <rect x="112" y="128" width="356" height="214" fill="#faf8f2"/>
+    <rect x="112" y="128" width="12" height="214" fill="#c6613f" stroke="none"/>
+    <path d="M154 176h166M154 208h246M154 240h196" stroke-width="10"/>
+    <rect x="154" y="282" width="58" height="20" fill="#c6613f" stroke="none"/>
+    <rect x="228" y="282" width="58" height="20" fill="#e5b09c" stroke="none"/>
+    <rect x="302" y="282" width="58" height="20" fill="#171614" stroke="none"/>
+
+    <rect x="138" y="402" width="290" height="132" fill="#eeeae1"/>
+    <path d="M174 444h116M174 474h202M174 504h150" stroke-width="8"/>
+
+    <rect x="98" y="586" width="126" height="96" fill="#934028"/>
+    <path d="M126 620h70M126 646h44" stroke="#faf8f2" stroke-width="7"/>
+    <rect x="270" y="582" width="170" height="106" fill="#faf8f2"/>
+    <path d="M304 620h102M304 650h70" stroke-width="7"/>
+  </g>
+
+  <g fill="none" stroke="#171614" stroke-width="3">
+    <path d="M468 234h72v112"/>
+    <path d="M428 468h76v-63h28"/>
+    <path d="M440 635h68v-170h26"/>
+  </g>
+  <g fill="#171614">
+    <path d="m528 336 12 10-12 10z"/>
+    <path d="m522 395 12 10-12 10z"/>
+    <path d="m524 455 12 10-12 10z"/>
+  </g>
+
+  <circle cx="602" cy="405" r="112" fill="#eeeae1" stroke="#934028" stroke-width="3"/>
+  <rect x="528" y="331" width="148" height="148" fill="#171614" transform="rotate(45 602 405)"/>
+  <rect x="578" y="381" width="48" height="48" fill="#faf8f2" stroke="#c6613f" stroke-width="8"/>
+  <circle cx="602" cy="278" r="11" fill="#c6613f" stroke="#171614" stroke-width="2"/>
+  <circle cx="729" cy="405" r="11" fill="#c6613f" stroke="#171614" stroke-width="2"/>
+  <circle cx="602" cy="532" r="11" fill="#c6613f" stroke="#171614" stroke-width="2"/>
+
+  <g fill="none" stroke-linecap="square">
+    <path d="M706 405C770 405 786 318 858 318" stroke="#171614" stroke-width="11"/>
+    <path d="M706 405h160" stroke="#171614" stroke-width="11"/>
+    <path d="M706 405c64 0 80 88 152 88" stroke="#171614" stroke-width="11"/>
+    <path d="M706 405C770 405 786 318 858 318M706 405h160M706 405c64 0 80 88 152 88" stroke="#c6613f" stroke-width="5"/>
+  </g>
+  <g fill="#171614">
+    <path d="m846 304 18 14-18 14z"/>
+    <path d="m854 391 18 14-18 14z"/>
+    <path d="m846 479 18 14-18 14z"/>
+  </g>
+
+  <g stroke="#171614" stroke-width="2.5" stroke-linejoin="miter">
+    <path d="m756 584 314-183 290 166-315 184z" fill="#faf8f2"/>
+    <g fill="none" stroke="#9e988d" stroke-width="2">
+      <path d="m809 614 315-183M864 646l315-183M920 679l314-184M976 711l314-183"/>
+      <path d="m809 553 290 166M864 521l290 166M919 489l290 166M974 457l290 166M1029 425l290 166"/>
+    </g>
+
+    <path d="m870 337 144-84 142 81-145 85z" fill="#faf8f2" fill-opacity="0.9"/>
+    <path d="m870 337 141 82v174l-141-81z" fill="#e5b09c" fill-opacity="0.9"/>
+    <path d="m1011 419 145-85v174l-145 85z" fill="#eeeae1" fill-opacity="0.92"/>
+    <path d="M870 337v175m286-178v174M1014 253v166" fill="none"/>
+    <path d="m870 512 141 81 145-85" fill="none"/>
+
+    <path d="m1086 474 88-51 88 50-89 52z" fill="#171614"/>
+    <path d="m1086 474 87 51v112l-87-50z" fill="#934028"/>
+    <path d="m1173 525 89-52v112l-89 52z" fill="#c6613f"/>
+
+    <path d="m885 558 60-35 59 34-60 35z" fill="#faf8f2"/>
+    <path d="m885 558 59 34v72l-59-34z" fill="#e5b09c"/>
+    <path d="m944 592 60-35v72l-60 35z" fill="#eeeae1"/>
+  </g>
+
+  <g fill="#faf8f2" stroke="#171614" stroke-width="2">
+    <circle cx="858" cy="318" r="10"/>
+    <circle cx="866" cy="405" r="10"/>
+    <circle cx="858" cy="493" r="10"/>
+  </g>
+  <rect x="1318" y="112" width="44" height="44" fill="#171614"/>
+  <rect x="1288" y="142" width="44" height="44" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+</svg>

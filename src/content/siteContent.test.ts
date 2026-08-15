@@ -179,6 +179,14 @@ describe("site content", () => {
       expect(article.data.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       expect(article.data.tags.length).toBeGreaterThan(0);
       expect(article.body).toMatch(/^\S/);
+
+      if (article.data.cover?.startsWith("/assets/")) {
+        expect(
+          existsSync(
+            join(process.cwd(), "public", article.data.cover.slice(1)),
+          ),
+        ).toBe(true);
+      }
     }
 
     expect(
