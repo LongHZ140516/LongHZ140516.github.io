@@ -55,7 +55,7 @@ featured: true
 
 因此，我当时思考的是，与其完全重新设计一套生成方式，不如将这些成熟的图形学方法与当前快速发展的生成模型结合起来。对于贴图、3D 资产、材质等更依赖创造性的部分，可以交给生成模型完成，而传统 PCG 方法则负责保证世界的结构性、稳定性和可控性，PCG 不仅能够实现快速的地形生成，而且其实现方式可以完全通过代码来完成，这又进一步能运用当前 LLM coding方面的能力。
 
-我认为，这种结合能够让传统的游戏开发方法获得新的生命力：生成模型负责创造，程序化方法负责组织，二者共同构建一个既具有创造性，又具备可编辑性和可维护性的 3D 世界。
+我认为，这种结合能够让传统的游戏开发方法获得新的生命力：生成模型负责创造，程序化方法负责组织，二者共同构建一个既具有创造性，又具备可编辑性和可维护性的 3D 世界。（不过随着前段时间 SIGGRAPH 2026 的文章 InfiniteDiffusion[^infinitediffusion] 的出现，我相信未来的地形生成也会迎来新的方式，而不是只能通过噪声来进行地形的生成）
 
 ![生成模型负责创造，程序化方法负责组织，共同构建可编辑的 3D 世界。](/assets/blog/after-coding-agents-process.svg)
 
@@ -115,6 +115,7 @@ featured: true
 [^abot-world]: [ABot-World: Infinite Interactive World Rollout on a Single Desktop GPU](https://arxiv.org/abs/2607.19191)
 [^project-eden]: [Project Eden: The First World Model for AI-native Multiplayer and Agent Interaction in a Consistent World State](https://www.tripo3d.ai/research/project-eden)
 [^making-maps]: [Making maps with noise functions](https://www.redblobgames.com/maps/terrain-from-noise/)
+[^infinitediffusion]: [InfiniteDiffusion: Bridging Learned Fidelity and Procedural Utility for Open-World Terrain Generation](https://arxiv.org/abs/2512.08309)
 [^3dcodebench]: [3DCodeBench: Benchmarking Agentic Procedural 3D Modeling Via Code](https://arxiv.org/abs/2606.01057)
 [^articraft]: [Articraft: An Agentic System for Scalable Articulated 3D Asset Generation](https://arxiv.org/abs/2605.15187)
 [^hy3d-omni]: [Hunyuan3D-Omni: A Unified Framework for Controllable Generation of 3D Assets](https://arxiv.org/pdf/2509.21245)
