@@ -1,11 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 290" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
   <title id="title">画面是世界状态的投影</title>
   <desc id="description">左侧的视频模型生成视觉可信的下一帧，右侧的游戏世界维护命中、背包、冷却和空间等确定状态，两者并不相同。</desc>
-  <rect width="1200" height="340" fill="#eeeae1"/>
-  <rect x="1" y="1" width="1198" height="338" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
-  <text x="42" y="52" fill="#171614" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="31" font-weight="700">画面是世界状态的投影，不是状态本身</text>
-  <path d="M42 74h1116" stroke="#a49d91" stroke-width="2"/>
+  <rect width="1200" height="290" fill="#eeeae1"/>
+  <rect x="1" y="1" width="1198" height="288" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
 
+  <g transform="translate(0 -46)">
   <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
     <text x="46" y="111" fill="#934028" font-size="19" font-weight="700">视频世界模型</text>
     <text x="46" y="136" fill="#6f6a62" font-size="17">预测视觉上可信的下一帧</text>
@@ -58,5 +57,6 @@
     <text x="282" y="315" fill="#faf8f2" text-anchor="middle">可修改</text>
     <text x="445" y="315" fill="#faf8f2" text-anchor="middle">可复用</text>
     <text x="608" y="315" fill="#171614" text-anchor="middle">可持续维护</text>
+  </g>
   </g>
 </svg>

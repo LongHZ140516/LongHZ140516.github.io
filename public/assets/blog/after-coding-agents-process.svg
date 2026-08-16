@@ -1,11 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 280" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
   <title id="title">生成模型与 PCG 共同构建三维世界</title>
   <desc id="description">生成模型创造贴图、资产和材质，程序化内容生成组织地形、资产散布与材质混合，二者通过代码结合成稳定、可控、可维护的三维世界。</desc>
-  <rect width="1200" height="340" fill="#eeeae1"/>
-  <rect x="1" y="1" width="1198" height="338" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
-  <text x="42" y="52" fill="#171614" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="31" font-weight="700">生成模型负责创造，程序化方法负责组织</text>
-  <path d="M42 74h1116" stroke="#a49d91" stroke-width="2"/>
+  <rect width="1200" height="280" fill="#eeeae1"/>
+  <rect x="1" y="1" width="1198" height="278" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
 
+  <g transform="translate(0 -52)">
   <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
     <rect x="42" y="96" width="262" height="200" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
     <rect x="42" y="96" width="262" height="11" fill="#c6613f"/>
@@ -72,5 +71,6 @@
       <text x="950" y="284" fill="#faf8f2" text-anchor="middle">可控</text>
       <text x="1040" y="284" fill="#171614" text-anchor="middle">可维护</text>
     </g>
+  </g>
   </g>
 </svg>

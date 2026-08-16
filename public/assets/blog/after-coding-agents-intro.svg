@@ -1,13 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
   <title id="title">世界模型与 Coding Agent 正在改变 3D 创作</title>
   <desc id="description">世界模型受到算力、成本和产品化约束，Coding Agent 则通过代码和工具走向一个可编辑的三维游戏世界。</desc>
-  <rect width="1200" height="340" fill="#eeeae1"/>
-  <rect x="1" y="1" width="1198" height="338" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
-  <rect x="20" y="20" width="9" height="300" fill="#c6613f"/>
-  <text x="50" y="54" fill="#171614" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="31" font-weight="700">变化正在发生，但替代不会一夜到来</text>
-  <path d="M50 76h1100" stroke="#a49d91" stroke-width="2"/>
+  <rect width="1200" height="300" fill="#eeeae1"/>
+  <rect x="1" y="1" width="1198" height="298" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+  <rect x="20" y="20" width="9" height="260" fill="#c6613f"/>
 
-  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
+  <g transform="translate(0 -68)" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
     <text x="50" y="112" fill="#934028" font-size="19" font-weight="700">世界模型</text>
     <text x="50" y="136" fill="#6f6a62" font-size="17">生成连续、可信的画面</text>
     <g stroke="#171614" stroke-width="2">
@@ -27,16 +25,16 @@
     <text x="338" y="216" fill="#eeeae1" font-size="16">产品形态与商业模式</text>
 
     <text x="50" y="268" fill="#934028" font-size="19" font-weight="700">Coding Agent</text>
-    <rect x="168" y="244" width="120" height="52" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
-    <path d="M184 260h54M184 270h78M184 280h42" stroke="#171614" stroke-width="5"/>
+    <rect x="178" y="244" width="120" height="52" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+    <path d="M194 260h54M194 270h78M194 280h42" stroke="#171614" stroke-width="5"/>
     <circle cx="322" cy="270" r="24" fill="#c6613f" stroke="#171614" stroke-width="2"/>
     <rect x="315" y="263" width="14" height="14" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
-    <path d="M288 270h10M346 270h134" stroke="#171614" stroke-width="3"/>
-    <path d="m470 260 14 10-14 10z" fill="#171614"/>
-    <text x="168" y="320" fill="#6f6a62" font-size="16">调用代码与工具，把想法变成可操作的结果</text>
+    <path d="M346 270h218" stroke="#171614" stroke-width="3"/>
+    <path d="m554 260 14 10-14 10z" fill="#171614"/>
+    <text x="178" y="320" fill="#6f6a62" font-size="16">调用代码与工具，把想法变成可操作的结果</text>
   </g>
 
-  <g stroke="#171614" stroke-width="2" stroke-linejoin="miter">
+  <g transform="translate(-120 -40)" stroke="#171614" stroke-width="2" stroke-linejoin="miter">
     <circle cx="966" cy="190" r="112" fill="#c6613f" stroke="#934028"/>
     <path d="m696 250 204-116 224 127-205 117z" fill="#faf8f2"/>
     <g fill="none" stroke="#a49d91" stroke-width="1.5">
@@ -50,7 +48,7 @@
     <path d="m998 238 57 34v70l-57-33z" fill="#934028"/>
     <path d="m1055 272 59-34v70l-59 34z" fill="#c6613f"/>
   </g>
-  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
+  <g transform="translate(-120 -40)" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
     <text x="740" y="112" fill="#171614" font-size="20" font-weight="700">我仍然想亲手创造</text>
     <text x="740" y="137" fill="#171614" font-size="20" font-weight="700">一个属于自己的游戏世界</text>
   </g>
