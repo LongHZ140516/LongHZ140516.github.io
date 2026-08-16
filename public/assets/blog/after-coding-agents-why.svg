@@ -1,62 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 290" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 270" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
   <title id="title">画面是世界状态的投影</title>
-  <desc id="description">左侧的视频模型生成视觉可信的下一帧，右侧的游戏世界维护命中、背包、冷却和空间等确定状态，两者并不相同。</desc>
-  <rect width="1200" height="290" fill="#eeeae1"/>
-  <rect x="1" y="1" width="1198" height="288" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+  <desc id="description">左侧的视频模型生成视觉可信的下一帧，右侧的游戏世界维护命中、背包、冷却和空间等确定状态，并将状态渲染为可交互世界。</desc>
+  <defs>
+    <marker id="arrow-why" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#171614"/>
+    </marker>
+  </defs>
 
-  <g transform="translate(0 -46)">
+  <rect width="1200" height="270" fill="#eeeae1"/>
+  <rect x="1" y="1" width="1198" height="268" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+
   <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
-    <text x="46" y="111" fill="#934028" font-size="19" font-weight="700">视频世界模型</text>
-    <text x="46" y="136" fill="#6f6a62" font-size="17">预测视觉上可信的下一帧</text>
+    <text x="46" y="38" fill="#934028" font-size="19" font-weight="700">视频世界模型</text>
+    <text x="46" y="62" fill="#6f6a62" font-size="16">预测视觉上可信的下一帧</text>
   </g>
   <g stroke="#171614" stroke-width="2">
-    <rect x="54" y="169" width="222" height="112" fill="#eeeae1"/>
-    <rect x="76" y="154" width="222" height="112" fill="#e5b09c"/>
-    <rect x="98" y="139" width="222" height="112" fill="#faf8f2"/>
-    <circle cx="173" cy="196" r="28" fill="#c6613f"/>
-    <path d="m120 232 60-55 37 32 48-45 33 31" fill="none" stroke-width="3"/>
+    <rect x="54" y="96" width="222" height="108" fill="#eeeae1"/>
+    <rect x="76" y="82" width="222" height="108" fill="#e5b09c"/>
+    <rect x="98" y="68" width="222" height="108" fill="#faf8f2"/>
+    <circle cx="173" cy="123" r="27" fill="#c6613f"/>
+    <path d="m120 158 60-55 37 32 48-45 33 31" fill="none" stroke-width="3"/>
   </g>
-  <path d="M344 196h106" stroke="#171614" stroke-width="3"/>
-  <path d="m440 186 14 10-14 10z" fill="#171614"/>
-  <text x="472" y="220" fill="#171614" font-family="Georgia, Times New Roman, serif" font-size="72">≠</text>
+  <path d="M344 126h94" fill="none" stroke="#171614" stroke-width="3" marker-end="url(#arrow-why)"/>
+  <text x="462" y="149" fill="#171614" font-family="Georgia, Times New Roman, serif" font-size="68">≠</text>
 
   <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
-    <text x="590" y="111" fill="#934028" font-size="19" font-weight="700">可交互的游戏世界</text>
-    <text x="590" y="136" fill="#6f6a62" font-size="17">维护机器确信的下一状态</text>
-  </g>
-  <rect x="590" y="154" width="300" height="112" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
-  <g fill="#eeeae1" stroke="#171614" stroke-width="2" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="16">
-    <rect x="610" y="174" width="104" height="30"/>
-    <rect x="754" y="174" width="112" height="30"/>
-    <rect x="610" y="220" width="104" height="30"/>
-    <rect x="754" y="220" width="112" height="30"/>
-    <text x="662" y="195" fill="#171614" stroke="none" text-anchor="middle">攻击命中</text>
-    <text x="810" y="195" fill="#171614" stroke="none" text-anchor="middle">物品入包</text>
-    <text x="662" y="241" fill="#171614" stroke="none" text-anchor="middle">技能冷却</text>
-    <text x="810" y="241" fill="#171614" stroke="none" text-anchor="middle">空间关系</text>
-    <path d="M714 189h40M714 235h40M734 189v46" fill="none" stroke="#934028"/>
+    <text x="552" y="38" fill="#934028" font-size="19" font-weight="700">可交互的游戏世界</text>
+    <text x="552" y="62" fill="#6f6a62" font-size="16">维护机器确信的下一状态</text>
+
+    <rect x="552" y="76" width="300" height="108" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+    <g fill="#eeeae1" stroke="#171614" stroke-width="2" font-size="16">
+      <rect x="572" y="94" width="104" height="30"/>
+      <rect x="716" y="94" width="112" height="30"/>
+      <rect x="572" y="138" width="104" height="30"/>
+      <rect x="716" y="138" width="112" height="30"/>
+      <text x="624" y="115" fill="#171614" stroke="none" text-anchor="middle">攻击命中</text>
+      <text x="772" y="115" fill="#171614" stroke="none" text-anchor="middle">物品入包</text>
+      <text x="624" y="159" fill="#171614" stroke="none" text-anchor="middle">技能冷却</text>
+      <text x="772" y="159" fill="#171614" stroke="none" text-anchor="middle">空间关系</text>
+      <path d="M676 109h40M676 153h40M696 109v44" fill="none" stroke="#934028"/>
+    </g>
   </g>
 
+  <path d="M852 130h65" fill="none" stroke="#171614" stroke-width="3" marker-end="url(#arrow-why)"/>
   <g stroke="#171614" stroke-width="2" stroke-linejoin="miter">
-    <circle cx="1041" cy="201" r="94" fill="#c6613f" stroke="#934028"/>
-    <path d="m938 245 94-54 102 58-95 55z" fill="#faf8f2"/>
-    <path d="m987 169 56-32 55 31-56 33z" fill="#faf8f2"/>
-    <path d="m987 169 55 32v68l-55-32z" fill="#e5b09c"/>
-    <path d="m1042 201 56-33v68l-56 33z" fill="#eeeae1"/>
-    <circle cx="965" cy="247" r="7" fill="#171614"/>
-    <circle cx="1113" cy="249" r="7" fill="#171614"/>
-    <path d="M965 247h148" fill="none" stroke-dasharray="7 6"/>
+    <circle cx="1032" cy="107" r="70" fill="#c6613f" stroke="#934028"/>
+    <path d="m924 163 102-59 116 66-103 60z" fill="#faf8f2"/>
+    <path d="m982 89 51-30 51 29-51 30z" fill="#faf8f2"/>
+    <path d="m982 89 51 29v66l-51-29z" fill="#e5b09c"/>
+    <path d="m1033 118 51-30v66l-51 30z" fill="#eeeae1"/>
+    <circle cx="946" cy="165" r="7" fill="#171614"/>
+    <circle cx="1119" cy="167" r="7" fill="#171614"/>
+    <path d="M946 165h173" fill="none" stroke-dasharray="7 6"/>
   </g>
 
-  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="16" font-weight="700">
-    <rect x="42" y="295" width="154" height="28" fill="#171614"/>
-    <rect x="205" y="295" width="154" height="28" fill="#934028"/>
-    <rect x="368" y="295" width="154" height="28" fill="#c6613f"/>
-    <rect x="531" y="295" width="154" height="28" fill="#e5b09c" stroke="#171614" stroke-width="1.5"/>
-    <text x="119" y="315" fill="#faf8f2" text-anchor="middle">可理解</text>
-    <text x="282" y="315" fill="#faf8f2" text-anchor="middle">可修改</text>
-    <text x="445" y="315" fill="#faf8f2" text-anchor="middle">可复用</text>
-    <text x="608" y="315" fill="#171614" text-anchor="middle">可持续维护</text>
-  </g>
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="15" font-weight="700">
+    <rect x="552" y="226" width="134" height="27" fill="#171614"/>
+    <rect x="694" y="226" width="134" height="27" fill="#934028"/>
+    <rect x="836" y="226" width="134" height="27" fill="#c6613f"/>
+    <rect x="978" y="226" width="160" height="27" fill="#e5b09c" stroke="#171614" stroke-width="1.5"/>
+    <text x="619" y="245" fill="#faf8f2" text-anchor="middle">可理解</text>
+    <text x="761" y="245" fill="#faf8f2" text-anchor="middle">可修改</text>
+    <text x="903" y="245" fill="#faf8f2" text-anchor="middle">可复用</text>
+    <text x="1058" y="245" fill="#171614" text-anchor="middle">可持续维护</text>
   </g>
 </svg>

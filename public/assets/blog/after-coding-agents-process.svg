@@ -1,76 +1,86 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 280" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
   <title id="title">生成模型与 PCG 共同构建三维世界</title>
-  <desc id="description">生成模型创造贴图、资产和材质，程序化内容生成组织地形、资产散布与材质混合，二者通过代码结合成稳定、可控、可维护的三维世界。</desc>
+  <desc id="description">生成模型创造贴图、资产和材质，程序化内容生成组织地形、资产散布与材质混合，LLM 通过代码将两种能力连接成稳定、可控、可维护的三维世界。</desc>
+  <defs>
+    <marker id="arrow-process" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#171614"/>
+    </marker>
+  </defs>
+
   <rect width="1200" height="280" fill="#eeeae1"/>
   <rect x="1" y="1" width="1198" height="278" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
 
-  <g transform="translate(0 -52)">
   <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
-    <rect x="42" y="96" width="262" height="200" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
-    <rect x="42" y="96" width="262" height="11" fill="#c6613f"/>
-    <text x="62" y="137" fill="#934028" font-size="20" font-weight="700">生成模型</text>
-    <text x="228" y="137" fill="#6f6a62" font-size="16" text-anchor="end">创造</text>
+    <rect x="35" y="34" width="255" height="212" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+    <rect x="35" y="34" width="255" height="11" fill="#c6613f"/>
+    <text x="55" y="77" fill="#934028" font-size="20" font-weight="700">生成模型</text>
+    <text x="266" y="77" fill="#6f6a62" font-size="16" text-anchor="end">创造</text>
     <g font-size="17" fill="#171614">
-      <rect x="62" y="158" width="70" height="48" fill="#e5b09c" stroke="#171614" stroke-width="1.5"/>
-      <rect x="138" y="158" width="70" height="48" fill="#eeeae1" stroke="#171614" stroke-width="1.5"/>
-      <rect x="214" y="158" width="70" height="48" fill="#171614"/>
-      <text x="97" y="188" text-anchor="middle">贴图</text>
-      <text x="173" y="188" text-anchor="middle">资产</text>
-      <text x="249" y="188" fill="#faf8f2" text-anchor="middle">材质</text>
+      <rect x="55" y="98" width="68" height="48" fill="#e5b09c" stroke="#171614" stroke-width="1.5"/>
+      <rect x="129" y="98" width="68" height="48" fill="#eeeae1" stroke="#171614" stroke-width="1.5"/>
+      <rect x="203" y="98" width="68" height="48" fill="#171614"/>
+      <text x="89" y="128" text-anchor="middle">贴图</text>
+      <text x="163" y="128" text-anchor="middle">资产</text>
+      <text x="237" y="128" fill="#faf8f2" text-anchor="middle">材质</text>
     </g>
-    <path d="M62 235h114M62 256h188M62 277h146" stroke="#171614" stroke-width="6"/>
+    <path d="M55 177h104M55 200h184M55 223h142" stroke="#171614" stroke-width="6"/>
 
-    <rect x="326" y="96" width="284" height="200" fill="#eeeae1" stroke="#171614" stroke-width="2"/>
-    <rect x="326" y="96" width="284" height="11" fill="#171614"/>
-    <text x="346" y="137" fill="#171614" font-size="20" font-weight="700">传统 PCG</text>
-    <text x="584" y="137" fill="#6f6a62" font-size="16" text-anchor="end">组织</text>
+    <rect x="330" y="34" width="295" height="212" fill="#eeeae1" stroke="#171614" stroke-width="2"/>
+    <rect x="330" y="34" width="295" height="11" fill="#171614"/>
+    <text x="350" y="77" fill="#171614" font-size="20" font-weight="700">传统 PCG</text>
+    <text x="600" y="77" fill="#6f6a62" font-size="16" text-anchor="end">组织</text>
+    <text x="350" y="111" fill="#6f6a62" font-size="15">噪声地形</text>
     <g fill="none" stroke="#171614" stroke-width="2">
-      <path d="M346 196c28-47 56 44 87-5s61 30 91-20 51 15 66-4"/>
-      <path d="M346 211c28-47 56 44 87-5s61 30 91-20 51 15 66-4" stroke="#c6613f"/>
-      <circle cx="363" cy="244" r="5" fill="#934028"/>
-      <circle cx="397" cy="258" r="7" fill="#c6613f"/>
-      <circle cx="438" cy="239" r="4" fill="#171614"/>
-      <circle cx="474" cy="267" r="6" fill="#934028"/>
-      <circle cx="526" cy="245" r="5" fill="#171614"/>
-      <circle cx="566" cy="262" r="7" fill="#c6613f"/>
+      <path d="M350 153c29-46 58 43 91-5s63 29 94-19 54 14 70-4"/>
+      <path d="M350 169c29-46 58 43 91-5s63 29 94-19 54 14 70-4" stroke="#c6613f"/>
+      <circle cx="368" cy="202" r="5" fill="#934028"/>
+      <circle cx="405" cy="217" r="7" fill="#c6613f"/>
+      <circle cx="449" cy="198" r="4" fill="#171614"/>
+      <circle cx="489" cy="226" r="6" fill="#934028"/>
+      <circle cx="544" cy="204" r="5" fill="#171614"/>
+      <circle cx="585" cy="220" r="7" fill="#c6613f"/>
     </g>
-    <text x="346" y="175" fill="#6f6a62" font-size="15">噪声地形</text>
-    <text x="346" y="287" fill="#6f6a62" font-size="15">资产散布与 Splat Map</text>
+    <text x="350" y="238" fill="#6f6a62" font-size="15">资产散布与 Splat Map</text>
   </g>
 
-  <path d="M304 195h48M610 195h48" stroke="#171614" stroke-width="3"/>
-  <path d="m646 185 14 10-14 10z" fill="#171614"/>
-  <rect x="658" y="151" width="92" height="88" fill="#171614" transform="rotate(45 704 195)"/>
-  <rect x="685" y="176" width="38" height="38" fill="#faf8f2" stroke="#c6613f" stroke-width="6"/>
-  <text x="704" y="263" fill="#6f6a62" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="16" text-anchor="middle">代码连接两种能力</text>
-  <path d="M752 195h55" stroke="#171614" stroke-width="3"/>
-  <path d="m795 185 14 10-14 10z" fill="#171614"/>
+  <path d="M290 140h38" fill="none" stroke="#171614" stroke-width="3" marker-end="url(#arrow-process)"/>
+  <path d="M625 140h45" fill="none" stroke="#171614" stroke-width="3" marker-end="url(#arrow-process)"/>
+  <rect x="674" y="94" width="92" height="92" fill="#171614" transform="rotate(45 720 140)"/>
+  <rect x="701" y="121" width="38" height="38" fill="#faf8f2" stroke="#c6613f" stroke-width="6"/>
+  <path d="M770 140h43" fill="none" stroke="#171614" stroke-width="3" marker-end="url(#arrow-process)"/>
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" text-anchor="middle">
+    <text x="720" y="223" fill="#171614" font-size="16" font-weight="700">LLM 通过代码连接</text>
+    <text x="720" y="244" fill="#6f6a62" font-size="14">生成能力与程序化方法</text>
+  </g>
+
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
+    <rect x="815" y="34" width="350" height="212" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+    <rect x="815" y="34" width="350" height="11" fill="#c6613f"/>
+    <text x="835" y="77" fill="#171614" font-size="20" font-weight="700">可编辑的 3D 世界</text>
+    <text x="1140" y="77" fill="#6f6a62" font-size="16" text-anchor="end">落地</text>
+  </g>
 
   <g stroke="#171614" stroke-width="2" stroke-linejoin="miter">
-    <rect x="810" y="96" width="348" height="200" fill="#faf8f2"/>
-    <circle cx="1012" cy="184" r="91" fill="#c6613f" stroke="#934028"/>
-    <path d="m844 250 148-85 137 78-149 87z" fill="#faf8f2"/>
+    <circle cx="1060" cy="139" r="64" fill="#c6613f" stroke="#934028"/>
+    <path d="M850 190 961 126 1144 229 1032 245z" fill="#faf8f2"/>
     <g fill="none" stroke="#a49d91" stroke-width="1.5">
-      <path d="m881 271 148-85M919 292l147-85"/>
-      <path d="m881 229 137 79M918 208l137 78M955 187l137 78"/>
+      <path d="m880 207 110-64M911 224l110-64M942 242l110-64"/>
+      <path d="m892 166 140 79M930 144l183 103M968 122l183 103"/>
     </g>
-    <path d="m954 159 62-36 61 35-62 36z" fill="#faf8f2"/>
-    <path d="m954 159 61 35v72l-61-35z" fill="#e5b09c"/>
-    <path d="m1015 194 62-36v72l-62 36z" fill="#eeeae1"/>
-    <path d="m1055 225 40-23 40 23-40 24z" fill="#171614"/>
-    <path d="m1055 225 40 24v48l-40-23z" fill="#934028"/>
-    <path d="m1095 249 40-24v48l-40 24z" fill="#c6613f"/>
+    <path d="m976 131 55-32 55 31-55 32z" fill="#faf8f2"/>
+    <path d="m976 131 55 31v65l-55-31z" fill="#e5b09c"/>
+    <path d="m1031 162 55-32v65l-55 32z" fill="#eeeae1"/>
+    <path d="m1084 191 39-23 39 23-39 23z" fill="#171614"/>
+    <path d="m1084 191 39 23v30l-39-23z" fill="#934028"/>
+    <path d="m1123 214 39-23v30l-39 23z" fill="#c6613f"/>
   </g>
-  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
-    <text x="830" y="128" fill="#171614" font-size="20" font-weight="700">可编辑的 3D 世界</text>
-    <g font-size="15" font-weight="700">
-      <rect x="830" y="267" width="76" height="24" fill="#171614"/>
-      <rect x="912" y="267" width="76" height="24" fill="#934028"/>
-      <rect x="994" y="267" width="92" height="24" fill="#e5b09c" stroke="#171614" stroke-width="1"/>
-      <text x="868" y="284" fill="#faf8f2" text-anchor="middle">稳定</text>
-      <text x="950" y="284" fill="#faf8f2" text-anchor="middle">可控</text>
-      <text x="1040" y="284" fill="#171614" text-anchor="middle">可维护</text>
-    </g>
-  </g>
+
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="15" font-weight="700">
+    <rect x="835" y="214" width="74" height="26" fill="#171614"/>
+    <rect x="917" y="214" width="74" height="26" fill="#934028"/>
+    <rect x="999" y="214" width="88" height="26" fill="#e5b09c" stroke="#171614" stroke-width="1"/>
+    <text x="872" y="232" fill="#faf8f2" text-anchor="middle">稳定</text>
+    <text x="954" y="232" fill="#faf8f2" text-anchor="middle">可控</text>
+    <text x="1043" y="232" fill="#171614" text-anchor="middle">可维护</text>
   </g>
 </svg>
