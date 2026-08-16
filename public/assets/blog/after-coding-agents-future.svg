@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
+  <title id="title">Coding Agent 连接创作意图与可交互三维世界</title>
+  <desc id="description">创作者用自然语言表达意图，Coding Agent 结合代码生成、空间理解和工具使用能力，完成建模、材质、特效、动画与生成模型协作，最终构建可探索、可交互、可迭代的游戏世界。</desc>
+  <defs>
+    <marker id="arrow-future" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#171614"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="300" fill="#eeeae1"/>
+  <rect x="1" y="1" width="1198" height="298" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
+    <rect x="34" y="34" width="238" height="216" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+    <rect x="34" y="34" width="10" height="216" fill="#c6613f"/>
+    <text x="62" y="68" fill="#934028" font-size="15" font-weight="700" letter-spacing="1.5">创作者</text>
+    <text x="62" y="97" fill="#171614" font-size="19" font-weight="700">自然语言与创作意图</text>
+
+    <path d="M62 119h176v64H82l-20 17z" fill="#eeeae1" stroke="#171614" stroke-width="1.8" stroke-linejoin="miter"/>
+    <text x="82" y="145" fill="#171614" font-size="16">“我想创造怎样的</text>
+    <text x="82" y="169" fill="#171614" font-size="16">独特世界？”</text>
+    <rect x="62" y="214" width="50" height="22" fill="#171614"/>
+    <rect x="118" y="214" width="50" height="22" fill="#934028"/>
+    <rect x="174" y="214" width="64" height="22" fill="#e5b09c" stroke="#171614" stroke-width="1"/>
+    <g font-size="13" font-weight="700" text-anchor="middle">
+      <text x="87" y="230" fill="#faf8f2">想象</text>
+      <text x="143" y="230" fill="#faf8f2">表达</text>
+      <text x="206" y="230" fill="#171614">兴趣</text>
+    </g>
+
+    <path d="M272 64h42" fill="none" stroke="#171614" stroke-width="3" marker-end="url(#arrow-future)"/>
+
+    <rect x="326" y="34" width="460" height="60" fill="#171614"/>
+    <rect x="344" y="51" width="26" height="26" fill="#c6613f"/>
+    <rect x="351" y="58" width="12" height="12" fill="#faf8f2"/>
+    <text x="385" y="70" fill="#faf8f2" font-size="20" font-weight="700">Coding Agent</text>
+    <text x="766" y="69" fill="#e5b09c" font-size="14" text-anchor="end">代码生成  ·  空间理解  ·  工具使用</text>
+
+    <path d="M556 94v17M397 111h318M397 111v9M556 111v9M715 111v9M478 111v71M637 111v71" fill="none" stroke="#a49d91" stroke-width="1.5"/>
+
+    <g font-size="15" font-weight="700">
+      <rect x="326" y="120" width="142" height="50" fill="#faf8f2" stroke="#171614" stroke-width="1.5"/>
+      <path d="m344 140 10-6 10 6-10 6zM344 140v12l10 6 10-6v-12M354 146v12" fill="none" stroke="#c6613f" stroke-width="1.6"/>
+      <text x="375" y="151" fill="#171614">3D 建模</text>
+
+      <rect x="485" y="120" width="142" height="50" fill="#eeeae1" stroke="#171614" stroke-width="1.5"/>
+      <circle cx="505" cy="139" r="5" fill="#c6613f"/>
+      <circle cx="517" cy="151" r="5" fill="#171614"/>
+      <circle cx="505" cy="155" r="3" fill="#934028"/>
+      <path d="M502 145 514 149M508 154l7-1" stroke="#171614" stroke-width="1.3"/>
+      <text x="532" y="151" fill="#171614">程序化材质</text>
+
+      <rect x="644" y="120" width="142" height="50" fill="#faf8f2" stroke="#171614" stroke-width="1.5"/>
+      <path d="m664 133 3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#c6613f" stroke="#171614" stroke-width="1.2"/>
+      <text x="681" y="151" fill="#171614">Shader 与特效</text>
+
+      <rect x="405" y="182" width="142" height="50" fill="#eeeae1" stroke="#171614" stroke-width="1.5"/>
+      <g fill="#faf8f2" stroke="#171614" stroke-width="1.4">
+        <circle cx="425" cy="198" r="4"/>
+        <circle cx="437" cy="208" r="4"/>
+        <circle cx="425" cy="218" r="4"/>
+        <path d="m428 201 6 5M434 211l-6 5" fill="none"/>
+      </g>
+      <text x="451" y="213" fill="#171614">绑定与动画</text>
+
+      <rect x="564" y="182" width="142" height="50" fill="#e5b09c" stroke="#171614" stroke-width="1.5"/>
+      <g fill="none" stroke="#171614" stroke-width="1.3">
+        <rect x="581" y="197" width="18" height="18"/>
+        <path d="m581 206 9-9 9 9-9 9z"/>
+      </g>
+      <text x="609" y="213" fill="#171614">Diffusion 协作</text>
+    </g>
+
+    <text x="556" y="258" fill="#934028" font-size="14" font-weight="700" text-anchor="middle" letter-spacing="1">参数可控  ·  部件可编辑  ·  流程可复用</text>
+
+    <path d="M786 64h38" fill="none" stroke="#171614" stroke-width="3" marker-end="url(#arrow-future)"/>
+
+    <rect x="836" y="34" width="329" height="216" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+    <rect x="836" y="34" width="329" height="10" fill="#c6613f"/>
+    <text x="856" y="72" fill="#171614" font-size="19" font-weight="700">完整的游戏世界</text>
+    <text x="1145" y="72" fill="#6f6a62" font-size="14" text-anchor="end">持续生长</text>
+  </g>
+
+  <g stroke="#171614" stroke-width="1.8" stroke-linejoin="miter">
+    <circle cx="1048" cy="130" r="65" fill="#c6613f" stroke="#934028"/>
+    <path d="m875 181 115-66 144 81-115 66z" fill="#faf8f2"/>
+    <g fill="none" stroke="#a49d91" stroke-width="1.2">
+      <path d="m904 198 115-66M933 215l115-66M962 232l115-66M991 249l115-66"/>
+      <path d="m904 164 115 66M933 147l144 82M962 130l144 82M991 115l143 81"/>
+    </g>
+    <path d="m963 122 49-28 49 28-49 29z" fill="#faf8f2"/>
+    <path d="m963 122 49 29v58l-49-29z" fill="#e5b09c"/>
+    <path d="m1012 151 49-29v58l-49 29z" fill="#eeeae1"/>
+    <path d="m1060 172 34-20 34 20-34 20z" fill="#171614"/>
+    <path d="m1060 172 34 20v31l-34-20z" fill="#934028"/>
+    <path d="m1094 192 34-20v31l-34 20z" fill="#c6613f"/>
+    <path d="M893 168c26-53 79-73 126-75" fill="none" stroke="#934028" stroke-dasharray="6 6"/>
+    <circle cx="893" cy="168" r="6" fill="#171614"/>
+    <path d="m1118 108 4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#faf8f2"/>
+  </g>
+
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+    <rect x="856" y="211" width="72" height="23" fill="#171614"/>
+    <rect x="934" y="211" width="72" height="23" fill="#934028"/>
+    <rect x="1012" y="211" width="72" height="23" fill="#e5b09c" stroke="#171614" stroke-width="1"/>
+    <text x="892" y="227" fill="#faf8f2">可探索</text>
+    <text x="970" y="227" fill="#faf8f2">可交互</text>
+    <text x="1048" y="227" fill="#171614">可迭代</text>
+    <text x="1000" y="278" fill="#171614" font-size="16">从“如何构建”走向“想创造什么”</text>
+  </g>
+</svg>

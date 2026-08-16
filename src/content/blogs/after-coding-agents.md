@@ -1,7 +1,7 @@
 ---
 title: "After Coding Agents: Rethinking How We Create in 3D"
 summary: "Starting from WorldClaw, I reflect on the current state of 3D coding agents, their limitations, and how they may reshape future 3D content creation."
-date: "2026-08-15"
+date: "2026-08-17"
 category: "Perspectives"
 tags: ["3D", "Coding Agents", "Agentic 3D"]
 cover: "/assets/blog/after-coding-agents.svg"
@@ -49,7 +49,7 @@ featured: true
 
 ### 如何制定出论文中的流程的？
 
-其实在接到这个主题的第一时刻，我马上就想好了整体的技术路线。由于我主要负责地形生成部分，因此第一时间想到的是图形学领域中已经被广泛使用的程序化内容生成（PCG）方法。
+其实在接到这个主题的第一时间，我马上就想好了整体的技术路线。由于我主要负责地形生成部分，因此第一时间想到的是图形学领域中已经被广泛使用的程序化内容生成（PCG）方法。
 
 传统的游戏开发中，地形制作往往并不是完全依赖人工雕刻，而是通过多种噪声函数模拟自然地貌的起伏，例如利用不同频率的噪声组合生成山脉结构[^making-maps]，再结合采样策略进行环境资产散布，或者通过 Splat Map 对不同区域的材质进行混合。这些方法都是游戏中构建大规模场景的重要工具。
 
@@ -59,10 +59,62 @@ featured: true
 
 ![生成模型负责创造，程序化方法负责组织，共同构建可编辑的 3D 世界。](/assets/blog/after-coding-agents-process.svg)
 
-其实在最开始
+其实在最开始的时候，我的思路依然比较传统：通过图像生成模型生成材质贴图，然后将这些贴图应用到场景地形中。但实际尝试下来，效果总是感觉不太理想。
 
+即使针对不同地形类别之间的接缝进行了融合处理，最终生成的结果依然存在一些明显的问题。主要体现在以下几个方面：
+
+* **难以满足无缝拼接需求**：生成的纹理通常无法很好地 tile，当贴图进行大范围平铺时，容易出现明显的重复感和接边痕迹，使整个场景产生割裂感；
+* **缺乏真实的材质质感**：即使进一步生成 Normal、Roughness 等 PBR 贴图，整体材质表现依然比较有限，难以达到游戏资产中需要的细腻质感；
+* **可编辑性较差**：生成结果通常是一次性的，很难根据具体需求进行细粒度调整，例如改变纹理细节、材质参数或者整体风格。
+
+但真正的转机来自一次比较偶然的测试。
+
+当时我正在尝试使用 [BlenderMCP](https://github.com/ahujasid/blender-mcp) 来控制 Blender 进行物体摆放，突然想到一个问题：**既然 LLM 已经能够理解场景、编写代码并完成物体的摆放，那么它是否也能够参与到材质制作的过程中？**
+
+抱着这样的想法，我只是简单地输入了一句提示词：
+
+> "please help me optimize the material of the terrain in the scene."
+
+十几分钟之后，我重新查看场景时，发现整个效果已经发生了非常明显的变化。原本比较普通的地形材质突然拥有了更加丰富的细节和层次感，整体视觉质量也提升了很多。这次经历对当时的我来说非常震撼，因为这是我第一次直观地感受到 **coding 本身在 3D 创作中的潜力**。过去我们通常认为代码更多是用于控制流程和实现功能，但在那一刻我意识到，代码在 3D 中也可以成为一种创造媒介。
+
+也正是从那时开始，我开始思考：
+
+> 或许未来 LLM 不只是辅助某一个环节，而是能够逐渐参与到整个 3D 创作流程中，从资产生成、材质制作，到场景搭建和迭代优化，重新定义我们创造数字世界的方式。
+
+当然，当时我也曾考虑过一个更激进的方向：*是否可以直接使用 coding 的方式来生成场景中的 3D 模型，而不是依赖 3D 生成模型。*
+
+但受限于当时模型本身的能力，这个想法并没有完全实现。那个阶段还没有 Fable 5、Opus 5、GPT-5.6 这类模型出现，LLM 在 3D 建模和复杂代码生成方面的能力还比较有限。从最终的视觉效果来看，coding 生成的模型依然很难达到生成式模型带来的丰富细节和视觉表现力。因此，在当时的 WorldClaw 中，我们仍然选择使用 3D 生成模型负责资产的创建，而让 coding / agent 更多参与到场景组织、材质优化以及流程控制等环节。
+
+但有意思的是，随着最近 SOTA LLM 在代码能力、空间理解能力以及工具调用能力上的快速提升，我们开始看到另一种可能性：未来的 3D 创作或许不一定需要依赖传统的建模工具，而是可以越来越多地通过 coding 的方式直接创造。如果模型能够理解空间、掌握 3D 表示，并且能够通过代码持续迭代和优化，那么未来我们或许真的可以只通过编写代码的方式，逐步构建出完整的 3D 世界。
+
+## 对于未来的展望
+
+其实关于未来的许多想法，我已经在前面的部分中有所提及，甚至也在论文的 Conclusion 中进行了一些展望。最近的一些研究工作，例如 3DCodeBench[^3dcodebench]、Articraft[^articraft]，以及一些社区项目，如 [img2threejs](https://github.com/img2threejs/img2threejs)、[img2obj](https://github.com/vinhhien112/img2obj) 等，都让我们看到一个明显的趋势：LLM 已经开始在 3D 领域展现出越来越强的能力。
+
+这种能力并不仅仅体现在 3D 建模上，也逐渐覆盖到材质制作、特效生成、模型动画、相机运镜、角色绑骨等多个环节。随着模型 coding 能力、空间理解能力以及工具调用能力的不断提升，我相信 coding 会在未来的 3D 创作流程中扮演越来越重要的角色，并逐渐催生出一种全新的 3D 内容生产方式。
+
+我对于未来 coding 在 3D 领域的发展主要有以下几个方向的期待：
+
+* **3D 建模**：通过对基础几何形状进行组合、变形和参数化控制，实现真正意义上的部件级建模。相比传统一次性生成的模型，这类方式不仅能够生成质量不差但更干净的 3D 资产，还可以支持后续任意参数调整、结构修改以及部件级动画控制；
+
+* **材质制作**：虽然仅仅依靠 coding 并不能覆盖所有类型的材质，例如一些高度不规则、复杂的自然纹理，但参考 Substance 3D 等工具中程序化材质的能力，我们已经可以看到 coding 在材质生成上的巨大潜力。它不仅能够生成具有较高质量的纹理效果，同时具备更强的可控性和后处理能力；
+
+* **特效制作**：由于 coding 可以直接编写 shader 代码，因此它不仅能够控制基础材质效果，也能够进一步实现更加复杂的视觉特效，例如动态材质、粒子效果以及实时交互效果；
+
+* **动画制作**：coding 可以直接参与模型 articulation、骨骼绑定以及动画逻辑的生成，使模型真正具备可交互的运动能力，而不仅仅是一个静态的视觉结果；
+
+* **与 Diffusion 模型结合**：当然，coding 也存在一定局限性，例如对于高度不规则表面、复杂自然物体的生成仍然存在挑战。但我认为 coding 和生成模型并不是互相替代的关系，而是可以形成互补。未来 coding 或许可以作为一种更强的 3D condition，对生成过程中的布局、结构、尺寸以及空间关系进行约束（例如 Hunyuan3D-Omni[^hy3d-omni] 所展示的方向）。
+
+我相信，在不远的未来，我们可能只需要输入一段自然语言描述，就能够创造一个完整的游戏世界。不仅包括可以自由探索的场景，还包括能够交互的物体、角色、动画以及各种视觉效果。而在这个过程中，coding 将成为连接语言、模型与数字世界的重要媒介。
+
+最终，我们希望世界创作不再被资源准备、材质制作或技术实现所限制。那些繁琐的底层流程，可以交由具备代码生成、视觉理解和工具使用能力的智能体完成。届时，3D 内容创作的核心问题将不再是“如何构建每一个组件”，而是“你想创造怎样的世界”。**我们只需专注于想象，专注于表达，专注于创造一个独一无二的世界——仅此而已。**
+
+![Coding 将语言、生成模型与数字世界连接起来，让创作者把注意力重新放回想象与表达。](/assets/blog/after-coding-agents-future.svg)
 
 [^lingbot-world]: [Advancing Open-source World Models](https://arxiv.org/abs/2601.20540)
 [^abot-world]: [ABot-World: Infinite Interactive World Rollout on a Single Desktop GPU](https://arxiv.org/abs/2607.19191)
 [^project-eden]: [Project Eden: The First World Model for AI-native Multiplayer and Agent Interaction in a Consistent World State](https://www.tripo3d.ai/research/project-eden)
 [^making-maps]: [Making maps with noise functions](https://www.redblobgames.com/maps/terrain-from-noise/)
+[^3dcodebench]: [3DCodeBench: Benchmarking Agentic Procedural 3D Modeling Via Code](https://arxiv.org/abs/2606.01057)
+[^articraft]: [Articraft: An Agentic System for Scalable Articulated 3D Asset Generation](https://arxiv.org/abs/2605.15187)
+[^hy3d-omni]: [Hunyuan3D-Omni: A Unified Framework for Controllable Generation of 3D Assets](https://arxiv.org/pdf/2509.21245)
