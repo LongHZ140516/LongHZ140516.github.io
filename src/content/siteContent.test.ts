@@ -180,6 +180,17 @@ describe("site content", () => {
       expect(article.data.tags.length).toBeGreaterThan(0);
       expect(article.body).toMatch(/^\S/);
 
+      const localFigurePaths = Array.from(
+        article.body.matchAll(/!\[[^\]]*\]\((\/assets\/[^)\s]+)\)/g),
+        (match) => match[1],
+      );
+
+      for (const figurePath of localFigurePaths) {
+        expect(
+          existsSync(join(process.cwd(), "public", figurePath.slice(1))),
+        ).toBe(true);
+      }
+
       if (article.data.cover?.startsWith("/assets/")) {
         expect(
           existsSync(
@@ -189,10 +200,5 @@ describe("site content", () => {
       }
     }
 
-    expect(
-      existsSync(
-        join(process.cwd(), "public/assets/blog/content-pipeline.svg"),
-      ),
-    ).toBe(true);
   });
 });

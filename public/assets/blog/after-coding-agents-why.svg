@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" role="img" aria-labelledby="title description" shape-rendering="geometricPrecision">
+  <title id="title">画面是世界状态的投影</title>
+  <desc id="description">左侧的视频模型生成视觉可信的下一帧，右侧的游戏世界维护命中、背包、冷却和空间等确定状态，两者并不相同。</desc>
+  <rect width="1200" height="340" fill="#eeeae1"/>
+  <rect x="1" y="1" width="1198" height="338" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+  <text x="42" y="52" fill="#171614" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="31" font-weight="700">画面是世界状态的投影，不是状态本身</text>
+  <path d="M42 74h1116" stroke="#a49d91" stroke-width="2"/>
+
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
+    <text x="46" y="111" fill="#934028" font-size="19" font-weight="700">视频世界模型</text>
+    <text x="46" y="136" fill="#6f6a62" font-size="17">预测视觉上可信的下一帧</text>
+  </g>
+  <g stroke="#171614" stroke-width="2">
+    <rect x="54" y="169" width="222" height="112" fill="#eeeae1"/>
+    <rect x="76" y="154" width="222" height="112" fill="#e5b09c"/>
+    <rect x="98" y="139" width="222" height="112" fill="#faf8f2"/>
+    <circle cx="173" cy="196" r="28" fill="#c6613f"/>
+    <path d="m120 232 60-55 37 32 48-45 33 31" fill="none" stroke-width="3"/>
+  </g>
+  <path d="M344 196h106" stroke="#171614" stroke-width="3"/>
+  <path d="m440 186 14 10-14 10z" fill="#171614"/>
+  <text x="472" y="220" fill="#171614" font-family="Georgia, Times New Roman, serif" font-size="72">≠</text>
+
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif">
+    <text x="590" y="111" fill="#934028" font-size="19" font-weight="700">可交互的游戏世界</text>
+    <text x="590" y="136" fill="#6f6a62" font-size="17">维护机器确信的下一状态</text>
+  </g>
+  <rect x="590" y="154" width="300" height="112" fill="#faf8f2" stroke="#171614" stroke-width="2"/>
+  <g fill="#eeeae1" stroke="#171614" stroke-width="2" font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="16">
+    <rect x="610" y="174" width="104" height="30"/>
+    <rect x="754" y="174" width="112" height="30"/>
+    <rect x="610" y="220" width="104" height="30"/>
+    <rect x="754" y="220" width="112" height="30"/>
+    <text x="662" y="195" fill="#171614" stroke="none" text-anchor="middle">攻击命中</text>
+    <text x="810" y="195" fill="#171614" stroke="none" text-anchor="middle">物品入包</text>
+    <text x="662" y="241" fill="#171614" stroke="none" text-anchor="middle">技能冷却</text>
+    <text x="810" y="241" fill="#171614" stroke="none" text-anchor="middle">空间关系</text>
+    <path d="M714 189h40M714 235h40M734 189v46" fill="none" stroke="#934028"/>
+  </g>
+
+  <g stroke="#171614" stroke-width="2" stroke-linejoin="miter">
+    <circle cx="1041" cy="201" r="94" fill="#c6613f" stroke="#934028"/>
+    <path d="m938 245 94-54 102 58-95 55z" fill="#faf8f2"/>
+    <path d="m987 169 56-32 55 31-56 33z" fill="#faf8f2"/>
+    <path d="m987 169 55 32v68l-55-32z" fill="#e5b09c"/>
+    <path d="m1042 201 56-33v68l-56 33z" fill="#eeeae1"/>
+    <circle cx="965" cy="247" r="7" fill="#171614"/>
+    <circle cx="1113" cy="249" r="7" fill="#171614"/>
+    <path d="M965 247h148" fill="none" stroke-dasharray="7 6"/>
+  </g>
+
+  <g font-family="PingFang SC, Noto Sans CJK SC, Arial, sans-serif" font-size="16" font-weight="700">
+    <rect x="42" y="295" width="154" height="28" fill="#171614"/>
+    <rect x="205" y="295" width="154" height="28" fill="#934028"/>
+    <rect x="368" y="295" width="154" height="28" fill="#c6613f"/>
+    <rect x="531" y="295" width="154" height="28" fill="#e5b09c" stroke="#171614" stroke-width="1.5"/>
+    <text x="119" y="315" fill="#faf8f2" text-anchor="middle">可理解</text>
+    <text x="282" y="315" fill="#faf8f2" text-anchor="middle">可修改</text>
+    <text x="445" y="315" fill="#faf8f2" text-anchor="middle">可复用</text>
+    <text x="608" y="315" fill="#171614" text-anchor="middle">可持续维护</text>
+  </g>
+</svg>
