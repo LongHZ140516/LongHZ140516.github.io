@@ -15,7 +15,7 @@ authors:
   - "Rui Chen"
   - "Weijia Li"
 image: "./assets/publications/editable-visual-design.webp"
-imageAlt: "Editable Visual Design examples across campaigns, long-form layouts, posters, and infographics"
+imageAlt: "Editable Visual Design workflow from planning and visual simulation to coding and editable layers"
 paperUrl: "https://arxiv.org/abs/2609.04034"
 githubUrl: "https://github.com/yejy53/Editable-Design"
 date: "2026-09-03"
