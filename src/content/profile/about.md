@@ -58,9 +58,15 @@ socials:
 
 affiliations:
   - kind: "work"
+    organization: "Tencent Hunyuan LLM"
+    role: "Research Intern"
+    period: "2026.08 - Present"
+    description: "Research internship with the Tencent Hunyuan LLM team."
+    logo: "./assets/brand/hunyuan.png"
+  - kind: "work"
     organization: "Tencent Hunyuan3D"
     role: "Research Intern"
-    period: "2026.05 - Present"
+    period: "2026.05 - 2026.08"
     description: "Internship with the Tencent Hunyuan3D team."
     logo: "./assets/brand/hunyuan.png"
     mentorLabel: "Mentors"

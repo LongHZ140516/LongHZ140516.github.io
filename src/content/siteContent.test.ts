@@ -38,6 +38,15 @@ describe("site content", () => {
         githubUrl: "https://github.com/yejy53/GenClaw",
       }),
     );
+    expect(publications).toContainEqual(
+      expect.objectContaining({
+        title: "Editable Visual Design",
+        venue: "arXiv 2026",
+        paperUrl: "https://arxiv.org/abs/2609.04034",
+        githubUrl: "https://github.com/yejy53/Editable-Design",
+        date: "2026-09-03",
+      }),
+    );
     expect(
       publications.find((publication) =>
         publication.title.startsWith("Mind-Brush:"),
@@ -50,7 +59,7 @@ describe("site content", () => {
     ).toBe("ECCV 2026 Oral");
   });
 
-  it("includes the current Tencent Hunyuan3D internship", () => {
+  it("shows the Tencent internship timeline", () => {
     const profile = readMarkdown<Profile>(
       join(contentRoot, "profile/about.md"),
     );
@@ -58,8 +67,16 @@ describe("site content", () => {
     expect(profile.affiliations).toContainEqual(
       expect.objectContaining({
         kind: "work",
+        organization: "Tencent Hunyuan LLM",
+        role: "Research Intern",
+        period: "2026.08 - Present",
+      }),
+    );
+    expect(profile.affiliations).toContainEqual(
+      expect.objectContaining({
+        kind: "work",
         organization: "Tencent Hunyuan3D",
-        period: "2026.05 - Present",
+        period: "2026.05 - 2026.08",
         mentors: expect.arrayContaining([
           expect.objectContaining({
             name: "Yang Li",
